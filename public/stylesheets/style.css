@@ -1,4 +1,15 @@
 @import 'bootstrap.css';
 body {
-  padding-top: 60px;
+  padding-top: 50px;
+}
+#canvas {
+  border: solid 1px #ccc;
+  height: 80%;
+  width: 100%;
+}
+#chat {
+  border: solid 1px #ccc;
+  height: 80%;
+  margin-bottom: 5px;
+  padding: 20px;
 }

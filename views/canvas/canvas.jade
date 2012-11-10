@@ -1,4 +1,11 @@
 extends ../layout
 
 block content
-  h1 #{canvas.title}
+  .span9
+      h2 #{canvas.title}
+        small Canvas type
+      canvas(id='canvas')
+  .span3
+    #chat
+      p We need a chat here
+    input(type='text', placeholder='Enter message')
