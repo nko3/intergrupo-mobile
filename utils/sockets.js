@@ -1,11 +1,14 @@
+var chat = require('./chat');
+
 module.exports = function(io) {
 
-  io.sockets.on('connection', function(sockets) {
-    sockets.emit('hello', { msg: 'Hello Node' });
+  io.sockets.on('connection', function(socket) {
 
-    sockets.on('bye', function(data) {
-      console.log(data);
+    socket.on('join', function(canvas, username) {
+      console.log(canvas);
+      console.log(username);
     });
+
   });
 
 }

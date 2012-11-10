@@ -4,8 +4,6 @@ block content
   .span9
       h2 #{canvas.title}
         small Canvas type
-      canvas(id='canvas')
+      canvas(id='canvas', data-canvas-id='#{canvas.public_id}')
   .span3
-    #chat
-      p We need a chat here
-    input(type='text', placeholder='Enter message')
+      include chat
