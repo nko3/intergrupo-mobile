@@ -1,21 +1,26 @@
 var CanvasSchema = new Schema({
   title: { type: String },
-  public_id: { type: String, default: generateId(8), unique: true },
+  public_id: { type: String, default: generateId(128), required: true, index: { unique: true, sparse: true }},
   created_at: { type: Date, default: Date.now }
 });
 
 mongoose.model('Canvas', CanvasSchema);
 
-function generateId(length) {
-  var chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz'.split('');
+function generateId(bits) {
+  var chars, rand, i, ret;
 
-  if (! length) {
-    length = Math.floor(Math.random() * chars.length);
+  chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_-';
+  ret = '';
+
+  // in v8, Math.random() yields 32 pseudo-random bits (in spidermonkey it gives 53)
+  while (bits > 0) {
+    // 32-bit integer
+    rand = Math.floor(Math.random() * 0x100000000);
+    // base 64 means 6 bits per character, so we use the top 30 bits from rand to give 30/6=5 characters.
+    for (i = 26; i > 0 && bits > 0; i -= 6, bits -= 6) {
+      ret += chars[0x3F & rand >>> i];
+    }
   }
 
-  var alias = '';
-  for (var i = 0; i < length; i++) {
-    alias += chars[Math.floor(Math.random() * chars.length)];
-  }
-  return alias;
+  return ret;
 }
