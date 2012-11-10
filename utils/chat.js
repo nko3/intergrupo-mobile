@@ -3,6 +3,7 @@ var canvas = {};
 
 var User = function(options) {
     this.username = options.username;
+    this.avatar = options.avatar || '/images/avatar.png';
 };
 
 var Chat = (function() {
