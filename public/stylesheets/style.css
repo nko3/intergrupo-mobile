@@ -1,6 +1,4 @@
+@import 'bootstrap.css';
 body {
-  font: 14px Helvetica, Arial, sans-serif;
-}
-a {
-  color: #00B7FF;
+  padding-top: 60px;
 }

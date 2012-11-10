@@ -1,7 +1,16 @@
 doctype 5
 html
   head
-    title= title
+    title Canvas Model Design :: #{title}
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
-    block content
+    .navbar.navbar-inverse.navbar-fixed-top
+      .navbar-inner
+        .container-fluid
+          a(class="brand", href="/") Canvas Model Design
+          ul(class="nav")
+    .container-fluid
+      .row-fluid
+        block content
+    script(src='/javascripts/jquery.js')
+    script(src='/javascripts/bootstrap.js')
