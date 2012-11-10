@@ -11,6 +11,9 @@
     "url": "git@github.com:nko3/intergrupo-mobile.git"
   },
   "dependencies": {
+    "express": "3.0.2",
+    "jade": "*",
+    "less-middleware": "*"
   },
   "engines": {
     "node": "0.8.x"
