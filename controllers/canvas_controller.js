@@ -5,7 +5,9 @@ exports.index = function(req, res) {
 }
 
 exports.create = function(req, res) {
-  var canvas = new Canvas({ title: 'test' });
+  var title = req.param('title') || 'untitled'
+    , canvas = new Canvas({ title: title });
+
   canvas.save(function(err, canvas) {
     if(err) throw err;
 
