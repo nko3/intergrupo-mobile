@@ -1,6 +1,6 @@
 // Load Controllers
-var home = require('./controllers/home_controller')
-  , canvas = require('./controllers/canvas_controller');
+var home = require('../controllers/home_controller')
+  , canvas = require('../controllers/canvas_controller');
 
 module.exports = function(app) {
   // Home Routes

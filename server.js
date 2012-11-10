@@ -36,10 +36,10 @@ app.configure('development', function(){
 app.use(ratchet.errorHandler("969336c0071448bf9892a855ea0d0843"));
 
 // Load Config
-require('./config');
+require('./config/config');
 
 // Database
-require('./db');
+require('./config/db');
 
 // Load Models
 var modelPath = __dirname + '/models'
@@ -50,10 +50,10 @@ models.forEach(function(file) {
 });
 
 // Load Routes
-require('./routes')(app);
+require('./config/routes')(app);
 
 // Load Socket Server
-require('./sockets')(io);
+require('./utils/sockets')(io);
 
 server.listen(app.get('port'), function(){
   console.log("Canvas Model Design server listening on port " + app.get('port'));
