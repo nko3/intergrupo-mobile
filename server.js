@@ -14,6 +14,8 @@ var app = express()
   , io = require('socket.io').listen(server);
 
 app.configure(function(){
+  var MemoryStore = require('connect').session.MemoryStore;
+
   app.set('port', process.env.PORT || 3000);
   app.set('views', __dirname + '/views');
   app.set('view engine', 'jade');
@@ -22,7 +24,7 @@ app.configure(function(){
   app.use(express.bodyParser());
   app.use(express.methodOverride());
   app.use(express.cookieParser('th4c00k13p4s3r'));
-  app.use(express.session());
+  app.use(express.session({ store: new MemoryStore({ reapInterval: 60000 * 10 }) }));
   app.use(app.router);
   app.use(require('less-middleware')({ src: __dirname + '/public' }));
   app.use(express.static(path.join(__dirname, 'public')));

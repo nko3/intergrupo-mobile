@@ -1,4 +1,5 @@
-var Canvas = mongoose.model('Canvas');
+var Canvas = mongoose.model('Canvas')
+  , utils = require('../utils/utils');
 
 exports.index = function(req, res) {
   res.redirect('/');
@@ -16,9 +17,14 @@ exports.create = function(req, res) {
 };
 
 exports.show = function(req, res) {
-  var public_id = req.param('public_id');
+  var publicId = req.param('public_id')
+  , userId = req.session.userId = req.session.userId ? req.session.userId : publicId + "_ " + utils.generateId(32);
 
-  Canvas.findOne({ public_id: public_id }, function(err, canvas) {
-    res.render('canvas/canvas', { title: canvas.title, canvas: canvas });
+  Canvas.findOne({ public_id: publicId }, function(err, canvas) {
+    res.render('canvas/canvas', {
+      title: canvas.title,
+      canvas: canvas,
+      userId: userId
+    });
   });
 };
