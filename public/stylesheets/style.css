@@ -4,8 +4,11 @@ body {
 }
 #canvas {
   border: solid 1px #ccc;
-  height: 80%;
+}
+#main {
+  display: block;
   width: 100%;
+  height: 550px;
 }
 #chat {
   border: solid 1px #ccc;
