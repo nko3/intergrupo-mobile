@@ -16,3 +16,11 @@ exports.generateId = function(bits) {
 
   return ret;
 }
+
+exports.stripHtml = function(text) {
+  if(typeof text === 'string') {
+    return text.replace(/(<([^>]+)>)/ig,"");
+  } else {
+    return '';
+  }
+}
