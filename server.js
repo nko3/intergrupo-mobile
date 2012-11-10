@@ -9,7 +9,9 @@ var express = require('express')
   , fs = require('fs')
   , ratchet = require('ratchetio');
 
-var app = express();
+var app = express()
+  , server = http.createServer(app)
+  , io = require('socket.io').listen(server);
 
 app.configure(function(){
   app.set('port', process.env.PORT || 3000);
@@ -50,6 +52,9 @@ models.forEach(function(file) {
 // Load Routes
 require('./routes')(app);
 
-http.createServer(app).listen(app.get('port'), function(){
-  console.log("Express server listening on port " + app.get('port'));
+// Load Socket Server
+require('./sockets')(io);
+
+server.listen(app.get('port'), function(){
+  console.log("Canvas Model Design server listening on port " + app.get('port'));
 });
