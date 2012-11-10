@@ -1,8 +1,8 @@
 
 /**
- * Module dependencies.
+ * Canvas Model Design
+ *
  */
-
 var express = require('express')
   , routes = require('./routes')
   , http = require('http')
@@ -28,6 +28,12 @@ app.configure(function(){
 app.configure('development', function(){
   app.use(express.errorHandler());
 });
+
+// Load Config
+require('./config');
+
+// Database
+require('./db');
 
 app.get('/', routes.index);
 
