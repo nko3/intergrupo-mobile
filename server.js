@@ -6,7 +6,8 @@
 var express = require('express')
   , http = require('http')
   , path = require('path')
-  , fs = require('fs');
+  , fs = require('fs')
+  , ratchet = require('ratchetio');
 
 var app = express();
 
@@ -28,6 +29,9 @@ app.configure(function(){
 app.configure('development', function(){
   app.use(express.errorHandler());
 });
+
+// Use Ratchet.io
+app.use(ratchet.errorHandler("969336c0071448bf9892a855ea0d0843"));
 
 // Load Config
 require('./config');
