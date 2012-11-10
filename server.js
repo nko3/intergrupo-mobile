@@ -5,7 +5,8 @@
  */
 var express = require('express')
   , http = require('http')
-  , path = require('path');
+  , path = require('path')
+  , fs = require('fs');
 
 var app = express();
 
@@ -33,6 +34,14 @@ require('./config');
 
 // Database
 require('./db');
+
+// Load Models
+var modelPath = __dirname + '/models'
+  , models = fs.readdirSync(modelPath);
+
+models.forEach(function(file) {
+  require(modelPath + '/' + file);
+});
 
 // Load Routes
 require('./routes')(app);
