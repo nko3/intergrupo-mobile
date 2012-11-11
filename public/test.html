@@ -6,103 +6,19 @@
         <title></title>
       <script src="javascripts/jquery.js" type="text/javascript"></script>
       <script src="javascripts/jcanvas.js" type="text/javascript"></script>
+      <script src="javascripts/canvas-tempates.js" type="text/javascript"></script>
     </head>
     <body>
-    <canvas id="bmc" width="1024" height="768" style="display:none;"></canvas>
-
-    <div id="canvas" style="border:4px solid black; width:1024px; height: 768px;">
-    </div>
+    <canvas id="bmc" width="800" height="600" style="border:4px solid black;" ></canvas>
+<!--
+    <div id="canvas" style="border:4px solid black; width:800px; height: 600px;">
+    </div>-->
 <script type="text/javascript">
 
   var canvas = $("#bmc");
 
-  function getBMC(width, height) {
-    vX = width / 5;
-    vY = height / 4;
-    tP = 3;
+  RenderCanvas("PBMC", canvas);
 
-    return [
-      ["Key Partners", tP, tP],
-      ["Key Activities", vX + tP, tP],
-      ["Value Propositions", vX * 2 + tP, tP],
-      ["Customer Relationships", vX * 3 + tP, tP],
-      ["Customer Segments", vX * 4 + tP, tP],
-      [vX, 0, vX, vY * 3],
-      [vX * 2, 0, vX * 2, vY * 3],
-      [vX * 3, 0, vX * 3, vY * 3],
-      [vX * 4, 0, vX * 4, vY * 3],
-      [vX * 2.5, vY * 3, vX * 2.5, vY * 4],
-      [vX, vY * 1.5, vX * 2, vY * 1.5],
-      [vX * 3, vY * 1.5, vX * 4, vY * 1.5],
-      [0, vY * 3, vX * 5, vY * 3]
-    ];
-  }
-
-  function getPBMC(width, height) {
-    return getBMC(width, height);
-  }
-
-  function RenderCanvas(type, canvas) {
-    width = canvas.width();
-    height = canvas.height();
-    switch (type) {
-      case 'PBMC':
-        layout = getPBMC;
-      default:
-        layout = getBMC;
-    }
-
-    renderPoints(canvas, layout(width, height));
-    $('#canvas').css('background-image', 'url(' + canvas.getCanvasImage("png") + ')');
-  }
-
-  function renderPoints(canvas, points) {
-
-    // The drawLine() object
-    var obj = {
-      strokeStyle: "#000",
-      strokeWidth: 4
-    };
-
-    // Add the points from the array to the object
-    for (var p = 0; p < points.length; p += 1) {
-
-
-      if (points[p].length == 3) {
-
-        obj = {
-          layer: true,
-          fillStyle: "#000",
-          strokeWidth: 1,
-          font: "bold 9pt Verdana, sans-serif",
-          fromCenter: false
-
-        };
-        obj['text'] = points[p][0];
-        obj['x'] = points[p][1];
-        obj['y'] = points[p][2];
-        canvas.drawText(obj);
-
-      } else {
-        obj = {
-          strokeStyle: "#000",
-          strokeWidth: 4
-        };
-        obj['x1'] = points[p][0] ;
-        obj['y1'] = points[p][1];
-        obj['x2'] = points[p][2];
-        obj['y2'] = points[p][3];
-        canvas.drawLine(obj);
-      }
-      
-    }
-
-    // Draw the line
-    canvas.drawLine(obj);
-
-  }
-
-  RenderCanvas("bmc", canvas);
 
 </script>
     </body>
