@@ -7,18 +7,18 @@ block content
 
       div#menubar
         div.dropdown
-          a#add_postit(data-toggle="dropdown", role="button")
+          a#add_postit(data-toggle="dropdown", role="button", href="#")
             img(alt="Add postit", src="../images/PostIt_on.png")
           div.dropdown-menu(role="menu")
-            a#blue_stickie.stickie(data-color-id=1)
+            a#blue_stickie.stickie(data-color-id=1, href="#")
               img(alt="Add blue postit", src="../images/sticky_blue.png")
-            a#green_stickie.stickie(data-color-id=2)
+            a#green_stickie.stickie(data-color-id=2, href="#")
               img(alt="Add green postit", src="../images/sticky_green.png")
-            a#red_stickie.stickie(data-color-id=3)
+            a#red_stickie.stickie(data-color-id=3, href="#")
               img(alt="Add red postit", src="../images/sticky_red.png")
-            a#yellow_stickie.stickie(data-color-id=4)
+            a#yellow_stickie.stickie(data-color-id=4, href="#")
               img(alt="Add yellow postit", src="../images/sticky_yellow.png")
-          a#save_canvas
+          a#save_canvas(href="#")
             img(alt="Save", src="../images/save_on.png")
           a(id="fork_canvas", href='/canvas/#{canvas.public_id}/fork')
             img(alt="Duplicate", src="/images/duplicate_on.png")
