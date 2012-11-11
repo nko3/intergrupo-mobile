@@ -25,6 +25,16 @@ body {
   margin-bottom: 5px;
   overflow: auto;
 }
+#chat #chat-messages .message {
+  background-color: #efefef;
+  border: solid 1px #ccc;
+  padding: 2px;
+  margin: 2px;
+}
+#chat #chat-messages .announcement {
+  font-style: italic;
+  color: #ccc;
+}
 .canvas-menu {
   width: 800px;
   margin: 0 auto;

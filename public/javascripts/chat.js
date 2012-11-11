@@ -7,6 +7,7 @@ $(document).ready(function() {
   // Check if chat exists!
   if(chat.length != 0) {
 
+    // var socket = io.connect('http://intergrupo-mobile.nko3.jit.su/chat');
     var socket = io.connect('http://localhost:3000/chat');
 
     socket.on('connect', function() {
@@ -53,17 +54,27 @@ $(document).ready(function() {
 
     $('#message-send').click(function(e) {
       e.preventDefault();
+      sendMessage(socket);
+    });
 
-      var msg = $('#message').val();
-
-      if(message) {
-        socket.emit('message', msg);
-        clear();
-
-        $('#chat-messages').get(0).scrollTop = 1000000000;
+    $('#message').keydown(function(e) {
+      var code = (e.keyCode ? e.keyCode : e.which);
+      if(code == 13) {
+        sendMessage(socket);
       }
     });
 
+  }
+
+  function sendMessage(socket) {
+    var msg = $('#message').val();
+
+    if(msg) {
+      socket.emit('message', msg);
+      clear();
+
+      $('#chat-messages').animate({ scrollTop: $('#chat-messages').height() }, 'slow');
+    }
   }
 
   function clear() {
