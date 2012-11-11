@@ -1,5 +1,6 @@
 var CanvasSchema = new Schema({
   title: { type: String },
+  type: { type: String },
   public_id: { type: String, required: true, index: { unique: true, sparse: true }},
   postits: { type: Schema.Types.Mixed, default: {} },
   created_at: { type: Date, default: Date.now }
