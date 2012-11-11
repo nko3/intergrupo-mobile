@@ -94,7 +94,7 @@ $(document).ready(function() {
   });
 
 
-  RenderCanvas("", c);
+  RenderCanvas($('small.type').text(), c);
 
   // var ct = c.get(0).getContext('2d');
   // var container = $(c).parent();
