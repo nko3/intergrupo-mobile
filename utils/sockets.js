@@ -61,20 +61,29 @@ module.exports = function(io) {
   var postits = [];
   var canvas = io.of('/canvas').on('connection', function(socket) {
 
-    socket.on('add_element', function(canvasId, element) {
+    socket.on('join', function(canvasId) {
       socket.join(canvasId);
-      postits.push(element);
+      console.log("joined to: " + canvasId);
+      socket.canvasId = canvasId;
+    });
+
+    socket.on('add_element', function(element) {
+      console.log('Add element on: ' + socket.canvasId);
       console.log("postits: " + postits);
 
-      socket.broadcast.to(canvasId).emit('element_added', element);
+      socket.broadcast.to(socket.canvasId).emit('element_added', element);
     });
 
-    socket.on('lock', function(canvasId, element) {
-      socket.broadcast.to(canvasId).emit('lock_element', element);
+    socket.on('lock', function(element) {
+      console.log('Lock element on: ' + socket.canvasId);
+
+      socket.broadcast.to(socket.canvasId).emit('lock_element', element);
     });
-    
-    socket.on('release', function(canvasId, element) {
-      socket.broadcast.to(canvasId).emit('release_element', element);
+
+    socket.on('release', function(element) {
+      console.log('Release element on: ' + socket.canvasId);
+
+      socket.broadcast.to(socket.canvasId).emit('release_element', element);
     });
 
   });
