@@ -93,22 +93,26 @@ $(document).ready(function() {
     $(this).css('cursor','auto');
   });
 
+
+  RenderCanvas("", c);
+  
+
   //Make canvas of variable width
-  var ct = c.get(0).getContext('2d');
-  var container = $(c).parent();
-  //Run function when browser resizes
-  $(window).resize( respondCanvas );
-  function respondCanvas(){
-    c.attr('width', $(container).width() );
-    //max width
-    c.attr('height', $(container).height() );
-    //max height
-    //Call a function to redraw other content (texts, images etc)
-    c.drawLayers();
-    RenderCanvas("", c);
-  }
-    //Initial call
-  respondCanvas();
+  // var ct = c.get(0).getContext('2d');
+  // var container = $(c).parent();
+  // //Run function when browser resizes
+  // $(window).resize( respondCanvas );
+  // function respondCanvas(){
+  //   c.attr('width', $(container).width() );
+  //   //max width
+  //   c.attr('height', $(container).height() );
+  //   //max height
+  //   //Call a function to redraw other content (texts, images etc)
+  //   c.drawLayers();
+  //   RenderCanvas("", c);
+  // }
+  //   //Initial call
+  // respondCanvas();
 
   var moveGroup = function(layer) {
     var postit = c.getLayer(layer.name);
@@ -203,8 +207,8 @@ $(document).ready(function() {
         fillStyle: metadata.fillStyle,
         strokeStyle: metadata.strokeStyle,
         strokeWidth: 2,
-        x: metadata.x? metadata.x : (parseInt(canvas.attr("width")) / 2),
-        y: metadata.y? metadata.y : (parseInt(canvas.attr("height")) / 2),
+        x: metadata.x? metadata.x : (parseInt(canvas.attr("width")) / 2 + Math.floor(Math.random() * 20) - 10),
+        y: metadata.y? metadata.y : (parseInt(canvas.attr("height")) / 2 + Math.floor(Math.random() * 20) - 10),
         width: metadata.size, height: metadata.size,
         draggable: true,
         bringToFront: false,
