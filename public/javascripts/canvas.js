@@ -2,12 +2,24 @@ var drawTemplate = function (canvas, metadata){
   console.log(metadata);
 };
 
-var dragStopped = function(object){
+var dragStopped = function(layer){
   //Emit for unlock and update
   // console.log(object.id);
+  var canvas = $('canvas');
+  var text_layer = canvas.getLayer(layer.text);
+  text_layer.x = layer.x + 5;
+  text_layer.y = layer.y + 20;
+  text_layer.opacity = 1;
+  var degrees = Math.floor(Math.random() * 7) - 6
+  text_layer.rotate = degrees;
+  layer.rotate = degrees;
 };
 
-var dragStarted = function(object){
+var dragStarted = function(layer){
+  var canvas = $('canvas');
+  var text_layer = canvas.getLayer(layer.text);
+  text_layer.opacity = 0;
+
   //Emit for lock
   // console.log(object.id);
 };
@@ -41,6 +53,7 @@ var drawPostit = function(canvas, metadata){
       layer: true,
       id: post_name,
       name: post_name,
+      text: text_name,
       group: group_name,
       fillStyle: metadata.fillStyle,
       strokeStyle: metadata.strokeStyle,
@@ -48,10 +61,10 @@ var drawPostit = function(canvas, metadata){
       x: (parseInt(canvas.attr("width")) / 2), y: (parseInt(canvas.attr("height")) / 2),
       width: metadata.size, height: metadata.size,
       draggable: true,
-      bringToFront: true,
+      bringToFront: false,
       dragstop: dragStopped,
       dragstart: dragStarted,
-      click: function(layer){
+      click: function (layer){
         console.log(layer.group);
       }
     };
@@ -65,9 +78,11 @@ var drawPostit = function(canvas, metadata){
     strokeWidth: 2,
     draggable: true,
     bringToFront: true,
-    x: postData.x + 5, y: postData.y + 10,
+    x: postData.x + 5, y: postData.y + 20,
+    height: postData.height,
     maxWidth: postData.width - 10,//Beta
-    text: "Add text here",
+    font: "bold 14pt Trebuchet MS",
+    text: "Add text here bla bla bla",
     click: function(layer){
       var textPrompted = prompt("Edit the text", layer.text);
       layer.text = textPrompted;
