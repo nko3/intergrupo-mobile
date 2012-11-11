@@ -19,12 +19,29 @@ $(document).ready(function() {
       socket.emit('join', canvasId, user);
     });
 
-
     socket.on('join', function(cId, user) {
       if(canvasId == cId) {
-        console.log(user);
+        announce(user.username + ' joins us!');
       }
     });
+  }
+
+  function announce(announce) {
+    announce = { announce: announce };
+
+    var source = $('#chat-announce-template').html()
+      , template = Handlebars.compile(source)
+      , content = template(announce);
+
+      $('#chat-messages').append(content);
+  }
+
+  function message(message) {
+    var source = $('#chat-message-template').html()
+      , template = Handlebars.compile(source)
+      , content = template(message);
+
+      $('#chat-messages').append(content);
   }
 
 });
