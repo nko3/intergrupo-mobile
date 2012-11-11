@@ -64,6 +64,7 @@ exports.show = function(req, res) {
     } else {
       res.render('canvas/canvas', {
         title: canvas.title,
+        type: canvas.type,
         canvas: canvas
       });
     }
