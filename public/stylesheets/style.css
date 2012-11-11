@@ -7,6 +7,8 @@ h4 {
 }
 #canvas {
   border: solid 4px black;
+  width: 100%;
+  height: 530px;
 }
 #main {
   display: block;
@@ -27,7 +29,7 @@ h4 {
 }
 #chat #chat-messages {
   height: 400px;
-  width:100%;
+  width: 100%;
   border: solid 1px #ccc;
   padding: 5px;
   margin-top: 5px;

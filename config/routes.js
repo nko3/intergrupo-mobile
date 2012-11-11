@@ -13,6 +13,6 @@ module.exports = function(app) {
   app.get('/canvas/create', canvas.create);
   app.post('/canvas/create', canvas.create);
   app.get('/canvas/:public_id', canvas.show);
-
+  app.get('/canvas/:public_id/fork', canvas.fork);
 
 };
