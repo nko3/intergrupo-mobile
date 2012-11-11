@@ -26,6 +26,8 @@ app.configure(function(){
   app.use(express.cookieParser('th4c00k13p4s3r'));
   app.use(express.session({ store: new MemoryStore({ reapInterval: 60000 * 10 }) }));
   app.use(app.router);
+  ratchet.handleUncaughtExceptions("969336c0071448bf9892a855ea0d0843");
+  app.use(ratchet.errorHandler("969336c0071448bf9892a855ea0d0843"));
   app.use(require('less-middleware')({ src: __dirname + '/public' }));
   app.use(express.static(path.join(__dirname, 'public')));
 });
@@ -33,9 +35,6 @@ app.configure(function(){
 app.configure('development', function(){
   app.use(express.errorHandler());
 });
-
-// Use Ratchet.io
-app.use(ratchet.errorHandler("969336c0071448bf9892a855ea0d0843"));
 
 // Load Config
 require('./config/config');

@@ -11,10 +11,10 @@ exports.create = function(req, res) {
 
   canvas.save(function(err, canvas) {
     if(err) {
-      res.redirect('/canvas/create');
-    };
-
-    res.redirect('/canvas/' + canvas.public_id);
+      throw new Error(err);
+    } else {
+      res.redirect('/canvas/' + canvas.public_id);
+    }
   });
 };
 
