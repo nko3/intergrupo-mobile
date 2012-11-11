@@ -1,5 +1,12 @@
 #chat
-  h1 Chat
+  #header
+    div#status
+      i(id="status-waiting", class='icon-refresh hide')
+      i(id="status-ok", class='icon-ok hide')
+      i(id="status-off", class='icon-off')
+    #counter
+      span(id='user-count', class='badge badge-success') 0
+      span &nbsp; user(s) online
   #chat-messages
     // Messages
   div(class='input-append')

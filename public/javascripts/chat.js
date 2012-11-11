@@ -11,7 +11,7 @@ $(document).ready(function() {
     var socket = io.connect('http://localhost:3000/chat');
 
     socket.on('connect', function() {
-        // do something
+      waiting();
     });
 
     socket.on('users', users);
@@ -22,14 +22,17 @@ $(document).ready(function() {
     socket.on('reconnect', function () {
       $('#chat-messages').empty();
       announce('Reconnected to the server');
+      ok();
     });
 
     socket.on('reconnecting', function () {
       announce('Attempting to re-connect to the server');
+      waiting();
     });
 
     socket.on('error', function (e) {
       announce(e ? e : 'A unknown error occurred');
+      off();
     });
 
     $('#chat-user-modal').modal('show');
@@ -44,6 +47,7 @@ $(document).ready(function() {
 
         if(!exists) {
           clear();
+          ok();
           return $('#chat-user-modal').modal('hide');
         }
 
@@ -63,7 +67,24 @@ $(document).ready(function() {
         sendMessage(socket);
       }
     });
+  }
 
+  function ok() {
+    $("#status-ok").removeClass('hide');
+    $("#status-off").addClass('hide');
+    $("#status-waiting").addClass('hide');
+  }
+
+  function off() {
+    $("#status-ok").addClass('hide');
+    $("#status-off").removeClass('hide');
+    $("#status-waiting").addClass('hide');
+  }
+
+  function waiting() {
+    $("#status-ok").addClass('hide');
+    $("#status-off").addClass('hide');
+    $("#status-waiting").removeClass('hide');
   }
 
   function sendMessage(socket) {
@@ -72,8 +93,6 @@ $(document).ready(function() {
     if(msg) {
       socket.emit('message', msg);
       clear();
-
-      $('#chat-messages').animate({ scrollTop: $('#chat-messages').height() }, 'slow');
     }
   }
 
@@ -86,7 +105,8 @@ $(document).ready(function() {
       , template = Handlebars.compile(source)
       , content = template({ announce: message });
 
-      $('#chat-messages').append(content);
+    $('#chat-messages').append(content);
+    $('#chat-messages').animate({ scrollTop: $('#chat-messages').height() }, 'slow');
   }
 
   function message(user, msg) {
@@ -94,11 +114,12 @@ $(document).ready(function() {
       , template = Handlebars.compile(source)
       , content = template({ user: user, message: msg });
 
-      $('#chat-messages').append(content);
+    $('#chat-messages').append(content);
+    $('#chat-messages').animate({ scrollTop: $('#chat-messages').height() }, 'slow');
   }
 
   function users(users) {
-    console.log(users);
+    $('#user-count').html(users.count);
   }
 
 });
