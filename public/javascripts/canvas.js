@@ -47,10 +47,39 @@ $(document).ready(function() {
     c.drawLayers();
   });
 
+
+  $('.dropdown-toggle').dropdown();
+
   $("#add_postit").click(function (e) {
     e.preventDefault();
 
-    var element = drawPostit(c, {fillStyle: "#36b", strokeStyle: '#36b', size: 100});
+    $("#popover").popover('show');
+  });
+
+  $(".stickie").click(function(e) {
+    e.preventDefault();
+
+    var color_id = $(this).data("color-id");
+    var color;
+
+    switch (color_id){
+      case 1:
+        color = "#528df3";
+      break;
+      case 2:
+        color = "#6cef53";
+      break;
+      case 3:
+        color = "#e68c8b";
+      break;
+      case 4:
+        color = "#f9f120";
+      break;
+      default:
+        color = "#528df3";
+    }
+
+    var element = drawPostit(c, {fillStyle: color, strokeStyle: color, size: 100});
     socket.emit("add_element", element);
   });
 
