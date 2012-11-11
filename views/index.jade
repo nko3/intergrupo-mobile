@@ -59,16 +59,16 @@ block content
                 |To know more about Business Model You or join the community visit: BusinessModelYou.com
                 //a(href='#canvas-new-modal', role='button', data-toggle='modal', title="Business Model You", rel='BMY', class="btn") create &raquo;
 
-  div(id='canvas-new-modal', class='modal hide fade')
-    form(action='/canvas/create', method='POST', class='form-vertical')
-      .modal-header
-        button(type='button', class='close', data-dismiss='modal', aria-hidden='true') x
-        h3 Setup your 
-            span(id="modalTitle")
-      .modal-body
-        input(name='title', type='text', placeholder='Canvas title')
-        input(name='type', type='hidden', placeholder='Canvas type')
-      .modal-footer
-        button(class='btn', data-dismiss='modal', aria-hidden='true') Cancel
-        button(type='submit', class='btn btn-primary') Create!
+    div(id='canvas-new-modal', class='modal hide fade')
+        form(action='/canvas/create', method='POST', class='form-vertical')
+            .modal-header
+                button(type='button', class='close', data-dismiss='modal', aria-hidden='true') x
+                h3 Setup your 
+                    span(id="modalTitle")
+            .modal-body
+                input(name='title', type='text', placeholder='Canvas title')
+                input(name='type', type='hidden', placeholder='Canvas type')
+            .modal-footer
+                button(class='btn', data-dismiss='modal', aria-hidden='true') Cancel
+                button(type='submit', class='btn btn-primary') Create!
 
