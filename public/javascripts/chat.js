@@ -130,7 +130,7 @@ $(document).ready(function() {
       , content = template({ announce: message });
 
     $('#chat-messages').append(content);
-    $('#chat-messages').animate({ scrollTop: $('#chat-messages').height() }, 'slow');
+    $("#chat-messages").get(0).scrollTop = 10000000;
   }
 
   function message(user, msg) {
@@ -142,7 +142,7 @@ $(document).ready(function() {
     content = content.replace('src=""',"src='" + user.avatar + "'");
 
     $('#chat-messages').append(content);
-    $('#chat-messages').animate({ scrollTop: $('#chat-messages').height() }, 'slow');
+    $("#chat-messages").get(0).scrollTop = 10000000;
   }
 
   function users(users) {

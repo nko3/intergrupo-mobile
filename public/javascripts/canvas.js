@@ -6,6 +6,7 @@ $(document).ready(function() {
 
   //Socket conf
   var socket = io.connect('http://localhost:3000/canvas');
+  // var socket = io.connect('http://intergrupo-mobile.nko3.jit.su/canvas');
 
   socket.on('connect', function() {
     console.log("connected");
@@ -16,7 +17,7 @@ $(document).ready(function() {
   socket.on('element_added', function(element) {
     console.log("on element added element: ");
     console.log(element);
-    drawPostit(c, { fillStyle: "#909", strokeStyle: "#F99", size: 100, 
+    drawPostit(c, { fillStyle: "#909", strokeStyle: "#F99", size: 100,
       name: element.name, text: element.text, close: element.close, group: element.group });
     // c.drawRect(element);
   });
