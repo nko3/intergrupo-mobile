@@ -1,10 +1,7 @@
-extends layout
+extends layout-content
 
 block content
-    .row-fluid.span8.offset2
-            h1.logo
-                img(alt="Business Model Design", src="images/logo.png")
-    .row-fluid.span8.offset2
+    .span12
         .canvas-menu.well-large
             ul(class="roundabout")
                 li
@@ -16,8 +13,8 @@ block content
                 li
                     a(href='#canvas-new-modal', role='button', data-toggle='modal', title="Business Model You", rel='BMY')
                         img(alt="Business Model You", src="images/canvas_bmy.png", data-toggle='modal' )
-    .row-fluid.span8.offset2
-    .row-fluid.span8.offset2
+    .span12
+    .row-fluid
         .span4
             //h3 Business Model Canvas
             img(alt="Business Model Canvas", src="images/canvas_bmg.png" )
