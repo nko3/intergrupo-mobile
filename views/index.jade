@@ -2,9 +2,17 @@ extends layout
 
 block content
   div(class='hero-unit')
-    h2 Welcome
-    p
-      a(href='#canvas-new-modal', role='button', data-toggle='modal', class='btn btn-primary btn-large') Create a New Canvas
+    div(class="canvas-menu")
+        ul(class="roundabout")
+            li
+                a(href='#canvas-new-modal', role='button', data-toggle='modal')
+                    img(alt="", src="images/canvas_bmg.png", data-toggle='modal' )
+            li
+                a(href='#canvas-new-modal', role='button', data-toggle='modal')
+                    img(alt="", src="images/canvas_bmy.png", data-toggle='modal' )
+            li
+                a(href='#canvas-new-modal', role='button', data-toggle='modal')
+                    img(alt="", src="images/canvas_empty.png", data-toggle='modal' )
 
   div(id='canvas-new-modal', class='modal hide fade')
     form(action='/canvas/create', method='POST', class='form-vertical')
@@ -16,3 +24,4 @@ block content
       .modal-footer
         button(class='btn', data-dismiss='modal', aria-hidden='true') Cancel
         button(type='submit', class='btn btn-primary') Create!
+
