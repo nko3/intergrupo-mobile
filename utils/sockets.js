@@ -1,12 +1,10 @@
-var chat = require('./chat');
-
 module.exports = function(io) {
 
-  io.sockets.on('connection', function(socket) {
+  var chat = io.of('/chat').on('connection', function(socket) {
 
     socket.on('join', function(canvasId, user) {
-      chat.join(canvasId, user);
-      socket.broadcast.emit('join', canvasId, user);
+      socket.join(canvasId);
+      socket.broadcast.to(canvasId).emit('join', canvasId, user);
     });
 
   });

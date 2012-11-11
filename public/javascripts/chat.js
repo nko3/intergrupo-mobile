@@ -2,17 +2,15 @@
 $(document).ready(function() {
 
   var chat = $("#chat")
-    , canvasId = $('#canvas').data('canvasId')
-    , userId = $('#canvas').data('userId');
+    , canvasId = $('#canvas').data('canvasId');
 
   var username = 'Anonymous_' + Math.floor(Math.random()*1000);
 
   if(chat.length !=0 ) {
-    var socket = io.connect('http://localhost:3000');
+    var socket = io.connect('http://localhost:3000/chat');
 
     socket.on('connect', function() {
       var user = {
-        userId: userId,
         username: username
       }
       // do the join
