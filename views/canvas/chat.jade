@@ -24,17 +24,21 @@
 
 div(id='chat-user-modal', class='modal hide fade')
   .modal-header
-    h3 User Information
+    h3 Begin to Collaborate!
   .modal-body
     .row-fluid
       .span6
         p
           input(type='text', id='nickname', placeholder='Enter your nickname')
-        p(id='chat-nickname-err', class='alert alert-error hide') Nickname taken! pleace choose another
+        p(id='chat-nickname-err', class='alert alert-error hide')
+          | Nickname taken! pleace choose another
         p
           input(type='email', id='email', placeholder='Enter your email')
-      .span6(style='border:solid 1px #ccc')
-        | YAYS!
+      .span6
+        img(id='avatar', src='/images/avatar.png')
+    p(id='chat-validation-err', class='alert alert-error hide')
+          | Please enter your nickname and email or enter as anonymous
+
   .modal-footer
     button(id='chat-join', class='btn btn-primary') Join us!
     button(id='chat-anonymous', class='btn btn-inverse') or enter Anonymous

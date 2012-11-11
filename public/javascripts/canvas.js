@@ -4,7 +4,6 @@ $(document).ready(function() {
   var c = $('canvas')
     , canvasId = c.data('canvasId');
 
-
   //Socket conf
   var socket = io.connect('http://localhost:3000/canvas');
 
