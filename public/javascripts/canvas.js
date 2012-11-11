@@ -238,7 +238,7 @@ $(document).ready(function() {
       height: postData.height,
       maxWidth: postData.width - 10,//Beta
       font: "bold 14pt Trebuchet MS",
-      text: metadata.content? metadata.content : "Add text here bla bla bla",
+      text: metadata.content? metadata.content : "Add text here",
       click: function(layer){
         var textPrompted = prompt("Edit the text", layer.text);
         if (textPrompted) {
