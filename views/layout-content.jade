@@ -1,0 +1,42 @@
+doctype 5
+html
+  head
+    title Canvas Model Design :: #{title}
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    script
+      var scripts = [];
+  body
+    #wrap
+      .container-fluid
+        .row-fluid
+            .span8.offset2.logo
+                h1.pull-left
+                    a(class="brand", href="/")
+                        img(alt="Business Model Design", src="images/logo.png")
+                ul.pull-right
+                    li
+                        a(href='/about') About
+                    li
+                        iframe(class='vote-up', src="http://nodeknockout.com/iframe/intergrupo-mobile", frameborder='0', scrolling='no', allowtransparency='true', width='115', height='25')
+        .row-fluid
+            .span8.offset2
+                block content
+        #push
+        #footer
+          .credits
+            p(class='muted')
+              p(style='float:left') Share your love and vote for us! &nbsp;
+                i(class='icon-heart')
+              iframe(src="http://nodeknockout.com/iframe/intergrupo-mobile", frameborder='0', scrolling='no', allowtransparency='true', width='115', height='20')
+    script(src='/javascripts/jquery.js')
+    script(src='/javascripts/bootstrap.js')
+    script(src='/javascripts/jquery.roundabout.js')
+    script(src='/javascripts/index.js')
+    script
+      (function() {
+        scripts.forEach(function(file) {
+          $.getScript(file, function() {
+            console.log(file + " loaded..");
+          });
+        });
+      })();

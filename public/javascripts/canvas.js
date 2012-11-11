@@ -1,28 +1,38 @@
 
 $(document).ready(function() {
 
-  var c = $('canvas');
-  
+  var c = $('canvas')
+    , canvasId = c.data('canvasId');
+
+
   //Socket conf
   var socket = io.connect('http://localhost:3000/canvas');
 
   socket.on('connect', function() {
     console.log("connected");
+
+    socket.emit('join', canvasId);
   });
 
   socket.on('element_added', function(element) {
-    console.log("Draw element:");
+    console.log("on element added element: ");
     console.log(element);
     drawPostit(c, element);
   });
 
   socket.on('lock_element', function(layer) {
+    console.log("on lock: ");
+    console.log(layer);
+
     // c.getLayer(layer.name).draggable = false;
     console.log("remote locking for " + layer.name);
     console.log(c.getLayer(layer.name));
   });
 
   socket.on('release_element', function(layer) {
+    console.log("on Release: " + layer);
+    console.log(layer);
+
     var postit = c.getLayer(layer.name);
     console.log("remote releasing for " + layer.name);
     console.log(postit);
@@ -34,7 +44,7 @@ $(document).ready(function() {
     e.preventDefault();
 
     var element = drawPostit(c, {fillStyle: "#909", strokeStyle: "#F99", size: 100});
-    socket.emit("add_element", c.data('canvasId'), element);
+    socket.emit("add_element", element);
   });
 
   c.hover(function() {
@@ -42,22 +52,22 @@ $(document).ready(function() {
   });
 
   //Make canvas of variable width
-  var ct = c.get(0).getContext('2d'); 
-  var container = $(c).parent(); 
-  //Run function when browser resizes 
-  $(window).resize( respondCanvas ); 
-  function respondCanvas(){ 
-    c.attr('width', $(container).width() ); 
-    //max width 
-    c.attr('height', $(container).height() ); 
-    //max height 
-    //Call a function to redraw other content (texts, images etc) 
+  var ct = c.get(0).getContext('2d');
+  var container = $(c).parent();
+  //Run function when browser resizes
+  $(window).resize( respondCanvas );
+  function respondCanvas(){
+    c.attr('width', $(container).width() );
+    //max width
+    c.attr('height', $(container).height() );
+    //max height
+    //Call a function to redraw other content (texts, images etc)
     c.drawLayers();
     RenderCanvas("", c);
-  } 
-    //Initial call 
+  }
+    //Initial call
   respondCanvas();
-  
+
 
   var drawTemplate = function (canvas, metadata){
     console.log(metadata);
@@ -69,10 +79,10 @@ $(document).ready(function() {
     var close_layer = canvas.getLayer(layer.close);
     text_layer.opacity = 0;
     close_layer.opacity = 0;
-    
+
     //Emit for lock
     console.log("locking " + layer.name);
-    socket.emit('lock', c.data('canvasId'), layer);
+    socket.emit('lock', layer);
   };
 
   var dragStopped = function(layer){
@@ -96,7 +106,7 @@ $(document).ready(function() {
     layer.rotate = degrees;
 
     console.log("releasing " + layer.name);
-    socket.emit('release', c.data('canvasId'), layer);
+    socket.emit('release', layer);
   };
 
   var generateId = function (bits) {
@@ -145,7 +155,7 @@ $(document).ready(function() {
         },
         mouseover: function (layer){
           $(this).css('cursor','move');
-        }, 
+        },
         mouseout: function (layer){
           $(this).css('cursor','auto');
         }
@@ -170,7 +180,7 @@ $(document).ready(function() {
         if (textPrompted) {
           layer.text = textPrompted;
         }
-        
+
       },
       mouseover: function (layer){
         $(this).css('cursor','text');
