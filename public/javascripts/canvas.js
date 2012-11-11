@@ -14,8 +14,8 @@ $(document).ready(function() {
 
   socket.on('init_postits', function(postits) {
     $.each(postits, function(key, element) {
-      drawPostit(c, { fillStyle: element.fillStyle, strokeStyle: element.strokeStyle, size: 100, 
-      name: element.name, text: element.text, close: element.close, group: element.group, 
+      drawPostit(c, { fillStyle: element.fillStyle, strokeStyle: element.strokeStyle, size: 100,
+      name: element.name, text: element.text, close: element.close, group: element.group,
       x: element.x, y: element.y, content: element.content });
       c.drawLayers();
     });
@@ -52,6 +52,12 @@ $(document).ready(function() {
 
     var element = drawPostit(c, {fillStyle: "#36b", strokeStyle: '#36b', size: 100});
     socket.emit("add_element", element);
+  });
+
+  $("#save_canvas").click(function(e) {
+    e.preventDefault();
+
+    socket.emit("save");
   });
 
   c.hover(function() {
@@ -168,7 +174,7 @@ $(document).ready(function() {
         fillStyle: metadata.fillStyle,
         strokeStyle: metadata.strokeStyle,
         strokeWidth: 2,
-        x: metadata.x? metadata.x : (parseInt(canvas.attr("width")) / 2), 
+        x: metadata.x? metadata.x : (parseInt(canvas.attr("width")) / 2),
         y: metadata.y? metadata.y : (parseInt(canvas.attr("height")) / 2),
         width: metadata.size, height: metadata.size,
         draggable: true,

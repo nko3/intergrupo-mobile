@@ -6,8 +6,10 @@ block content
         small Canvas type
 
       div#menubar
-        a#add_postit 
+        a#add_postit
           img(alt="Add postit", src="../images/PostIt_on.png")
+        a#save_canvas
+          | Save canvas!
 
       div(role='main', id='main')
         canvas(id='canvas', width=940, height=530, data-canvas-id='#{canvas.public_id}') Here comes the canvas
