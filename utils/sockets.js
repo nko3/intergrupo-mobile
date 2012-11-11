@@ -12,7 +12,13 @@ module.exports = function(io) {
     socket.on('join', function(canvasId, user, cb) {
       socket.join(canvasId);
 
-      nickname = user.nickname = utils.stripHtml(user.nickname);
+      nickname = utils.stripHtml(user.nickname);
+
+      if(nickname === "") {
+        nickname = 'anonymous_' + utils.generateId(2);
+      }
+
+      user.nickname = nickname;
       userId = socket.userId = canvasId + '_' + nickname;
 
       if(users[userId]) {

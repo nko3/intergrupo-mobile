@@ -6,6 +6,7 @@ module.exports = function(app) {
   // Home Routes
   app.get('/', home.index);
   app.get('/about', home.about);
+  app.get('/avatar', home.avatar);
 
   // Canvas Routes
   app.get('/canvas', canvas.create);
