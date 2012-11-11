@@ -5,6 +5,7 @@ var home = require('../controllers/home_controller')
 module.exports = function(app) {
   // Home Routes
   app.get('/', home.index);
+  app.get('/about', home.about);
 
   // Canvas Routes
   app.get('/canvas', canvas.create);
