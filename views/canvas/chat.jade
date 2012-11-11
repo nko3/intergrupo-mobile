@@ -24,12 +24,17 @@
 
 div(id='chat-user-modal', class='modal hide fade')
   .modal-header
-    button(type='button', class='close', data-dismiss='modal', aria-hidden='true') x
     h3 User Information
   .modal-body
-    input(type='text', id='nickname', placeholder='Enter your nickname')
-    p(id='chat-nickname-err', class='hide') Nickname taken! choose another
-    input(type='text', id='email', placeholder='Enter your email')
+    .row-fluid
+      .span6
+        p
+          input(type='text', id='nickname', placeholder='Enter your nickname')
+        p(id='chat-nickname-err', class='alert alert-error hide') Nickname taken! pleace choose another
+        p
+          input(type='email', id='email', placeholder='Enter your email')
+      .span6(style='border:solid 1px #ccc')
+        | YAYS!
   .modal-footer
-    button(class='btn', data-dismiss='modal', aria-hidden='true') Cancel
     button(id='chat-join', class='btn btn-primary') Join us!
+    button(id='chat-anonymous', class='btn btn-inverse') or enter Anonymous

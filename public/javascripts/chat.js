@@ -43,28 +43,35 @@ $(document).ready(function() {
       var nickname = $('#nickname').val()
         , email = $('#email').val();
 
-      socket.emit('join', canvasId, { nickname: nickname, email: email } , function(exists) {
+      join({ nickname: nickname, email: email });
+    });
 
-        if(!exists) {
-          clear();
-          ok();
-          return $('#chat-user-modal').modal('hide');
-        }
+    $('#chat-anonymous').click(function(e) {
+      e.preventDefault();
 
-        $('#chat-nickname-err').show();
-      });
+      var nickname = $('#nickname').val()
+        , email = $('#email').val();
 
+      join({ nickname: nickname, email: email });
     });
 
     $('#message-send').click(function(e) {
       e.preventDefault();
-      sendMessage(socket);
+      sendMessage();
     });
 
     $('#message').keydown(function(e) {
       var code = (e.keyCode ? e.keyCode : e.which);
       if(code == 13) {
-        sendMessage(socket);
+        sendMessage();
+      }
+    });
+
+    $('#email').keydown(function(e) {
+      var email = $('#email').val();
+
+      if(email.test(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
+        console.log(email);
       }
     });
   }
@@ -87,7 +94,7 @@ $(document).ready(function() {
     $("#status-waiting").removeClass('hide');
   }
 
-  function sendMessage(socket) {
+  function sendMessage() {
     var msg = $('#message').val();
 
     if(msg) {
@@ -98,6 +105,19 @@ $(document).ready(function() {
 
   function clear() {
     $('#message').val('').focus();
+  }
+
+  function join(user) {
+    socket.emit('join', canvasId, user, function(exists) {
+
+      if(!exists) {
+        clear();
+        ok();
+        return $('#chat-user-modal').modal('hide');
+      }
+
+      $('#chat-nickname-err').show();
+    });
   }
 
   function announce(message) {
