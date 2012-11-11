@@ -1,24 +1,25 @@
-(function() {
+
+$(document).ready(function() {
 
   var c = $('canvas');
   
+  //Socket conf
   var socket = io.connect('http://localhost:3000/canvas');
-
 
   socket.on('connect', function() {
     console.log("connected");
   });
 
-  socket.on('element added', function(element){
-    console.log(element);
-    drawPostit(c, element);
+  socket.on('element_added', function(element){
+    console.log("Draw element:" + element);
+    //drawPostit(c, element);
   });
 
   $("#add_postit").click(function (e) {
     e.preventDefault();
 
     var element = drawPostit(c, {fillStyle: "#909", strokeStyle: "#F99", size: 100});
-    socket.emit("add element", element);
+    socket.emit("add_element", c.data('canvasId'), element);
   });
 
   c.hover(function() {
@@ -51,21 +52,29 @@
     //Emit for unlock and update
     // console.log(object.id);
     var canvas = $('canvas');
+    var degrees = Math.floor(Math.random() * 12) - 6;
     var text_layer = canvas.getLayer(layer.text);
+    var close_layer = canvas.getLayer(layer.close);
+
     text_layer.x = layer.x + 5;
     text_layer.y = layer.y + 10;
     text_layer.opacity = 1;
-    var degrees = Math.floor(Math.random() * 12) - 6;
-    console.log()
     text_layer.rotate = degrees;
+
+    close_layer.x = layer.x - 35;
+    close_layer.y = layer.y - 35;
+    close_layer.opacity = 1;
+    close_layer.rotate = degrees;
+
     layer.rotate = degrees;
   };
 
   var dragStarted = function(layer){
     var canvas = $('canvas');
     var text_layer = canvas.getLayer(layer.text);
+    var close_layer = canvas.getLayer(layer.close);
     text_layer.opacity = 0;
-
+    close_layer.opacity = 0;
     //Emit for lock
     // console.log(object.id);
   };
@@ -150,33 +159,37 @@
       mouseout: function (layer){
         $(this).css('cursor','move');
       }
+    }).drawText({
+      layer: true,
+      name: close_name,
+      text_layer: text_name,
+      group: group_name,
+      fillStyle: "#000",
+      strokeWidth: 2,
+      draggable: false,
+      bringToFront: true,
+      x: postData.x - 35, y: postData.y - 35,
+      height: 10,
+      maxWidth: 10,//Beta
+      font: "bold 14pt Trebuchet MS",
+      text: "X",
+      click: function(layer){
+        canvas.removeLayerGroup(layer.group);
+        canvas.removeLayer(layer.text_layer);
+        canvas.drawLayers();
+      },
+      mouseover: function (layer){
+        $(this).css('cursor','pointer');
+      },
+      mouseout: function (layer){
+        $(this).css('cursor','auto');
+      }
     });
 
-    // canvas.drawText({
-    //   layer: true,
-    //   name: close_name,
-    //   text_layer: text_name,
-    //   id: close_name, 
-    //   group: group_name,
-    //   fillStyle: "#333",
-    //   strokeWidth: 3,
-    //   strokeStyle: "#333",
-    //   draggable: false,
-    //   bringToFront: true,
-    //   x: postData.x - 35, y: postData.y - 35,
-    //   height: 10,
-    //   maxWidth: 10,
-    //   font: "bold 12pt Trebuchet MS",
-    //   text: "X",
-    //   click: function (layer){
-    //     canvas.removeLayerGroup(group_name);
-    //     canvas.removeLayer(layer.text_layer);
-    //     canvas.drawLayers();
-    //   }
-    // });
+
     return postData;
   };
 
-})();
+});
 
 

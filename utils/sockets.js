@@ -57,12 +57,16 @@ module.exports = function(io) {
   });
 
   // Canvas Sockets
+
+  var postits = [];
   var canvas = io.of('/canvas').on('connection', function(socket) {
 
-    socket.on('add element', function(canvasId, element) {
+    socket.on('add_element', function(canvasId, element) {
       socket.join(canvasId);
+      postits.push(element);
+      console.log("postits: " + postits);
 
-      socket.broadcast.to(canvasId).emit('element added', element);
+      socket.broadcast.to(canvasId).emit('element_added', element);
     });
   });
 }
