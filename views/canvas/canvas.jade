@@ -20,6 +20,8 @@ block content
               img(alt="Add yellow postit", src="../images/sticky_yellow.png")
           a#save_canvas
             img(alt="Save", src="../images/save_on.png")
+          a#share(rel="popover", data-content="Content")
+            img(alt="Share", src="../images/share_on.png")
 
       
 
@@ -27,6 +29,16 @@ block content
         canvas(id='canvas', width=940, height=530, data-canvas-id='#{canvas.public_id}') Here comes the canvas
   .span2
       include chat
+      div.share
+        span.st_facebook_large(displaytext='Facebook')
+        span.st_twitter_large(displaytext='Tweet')
+        span.st_linkedin_large(displaytext='LinkedIn')
+        span.st_email_large(displaytext='Email')
+      script(type='text/javascript')
+        var switchTo5x=true;
+      script(type='text/javascript', src='http://w.sharethis.com/button/buttons.js')
+      script(type='text/javascript')
+        stLight.options({publisher: "24ea9ea2-8940-42fe-822d-8a68093dc24f"});
   script
     // Load dynamic JS
     scripts.push('/javascripts/canvas.js');
