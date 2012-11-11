@@ -40,23 +40,38 @@ $(document).ready(function() {
       var nickname = $('#nickname').val()
         , email = $('#email').val();
 
-      socket.emit('join', canvasId, { nickname: nickname, email: email }, function(exists) {
-        console.log(canvasId);
+      socket.emit('join', canvasId, { nickname: nickname, email: email } , function(exists) {
 
         if(!exists) {
+          clear();
           return $('#chat-user-modal').modal('hide');
         }
 
         $('#chat-nickname-err').show();
-
       });
 
-
     });
+
+    $('#message-send').click(function(e) {
+      e.preventDefault();
+
+      var msg = $('#message').val();
+
+      if(message) {
+        socket.emit('message', msg);
+        clear();
+
+        $('#chat-messages').get(0).scrollTop = 1000000000;
+      }
+    });
+
+  }
+
+  function clear() {
+    $('#message').val('').focus();
   }
 
   function announce(message) {
-    console.log(message);
     var source = $('#chat-announce-template').html()
       , template = Handlebars.compile(source)
       , content = template({ announce: message });
@@ -64,12 +79,10 @@ $(document).ready(function() {
       $('#chat-messages').append(content);
   }
 
-  function message(user, message) {
-    console.log(user);
-    console.log(message);
+  function message(user, msg) {
     var source = $('#chat-message-template').html()
       , template = Handlebars.compile(source)
-      , content = template({ user: user, message: message });
+      , content = template({ user: user, message: msg });
 
       $('#chat-messages').append(content);
   }

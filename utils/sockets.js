@@ -28,7 +28,7 @@ module.exports = function(io) {
 
     socket.on('message', function(message) {
       message = utils.stripHtml(message);
-      socket.broadcast.to(socket.canvasId).emit('message', socket.user, message);
+      chat.in(socket.canvasId).emit('message', socket.user, message);
     });
 
     socket.on('disconnect', function() {

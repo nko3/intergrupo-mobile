@@ -1,8 +1,9 @@
 #chat
-  #chat-title
-    h3 Chat
+  h1 Chat
   #chat-messages
     // Messages
+  input(id='message', type='text', placeholder='Enter message...')
+  button(id='message-send', class='btn btn-primary btn-small') Send
 
 #chat-announce-template.hide
   p.announce {{announce}}

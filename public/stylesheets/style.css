@@ -10,9 +10,13 @@ body {
   width: 100%;
   height: 550px;
 }
-#chat {
+#chat h1 {
+  font-size: 16px;
+}
+#chat #chat-messages {
+  height: 400px;
   border: solid 1px #ccc;
-  height: 80%;
+  padding: 5px;
   margin-bottom: 5px;
-  padding: 20px;
+  overflow: auto;
 }
