@@ -57,6 +57,12 @@ h4 {
   font-style: italic;
   color: #ccc;
 }
+.stickie {
+  margin: 3px;
+}
+.dropdown-menu {
+  padding-left: 40px;
+}
 .canvas-menu {
   margin: 0 auto;
   background-color: #6ec568;
