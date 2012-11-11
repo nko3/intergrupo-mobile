@@ -96,8 +96,6 @@ $(document).ready(function() {
 
   RenderCanvas("", c);
   
-
-  //Make canvas of variable width
   // var ct = c.get(0).getContext('2d');
   // var container = $(c).parent();
   // //Run function when browser resizes
