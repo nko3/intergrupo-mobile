@@ -69,7 +69,13 @@ module.exports = function(io) {
       socket.broadcast.to(canvasId).emit('element_added', element);
     });
 
-
+    socket.on('lock', function(canvasId, element) {
+      socket.broadcast.to(canvasId).emit('lock_element', element);
+    });
     
+    socket.on('release', function(canvasId, element) {
+      socket.broadcast.to(canvasId).emit('release_element', element);
+    });
+
   });
 }

@@ -11,16 +11,21 @@ $(document).ready(function() {
   });
 
   socket.on('element_added', function(element) {
-    console.log("Draw element:" + element);
-    //drawPostit(c, element);
+    console.log("Draw element:");
+    console.log(element);
+    drawPostit(c, element);
   });
 
-  socket.on('lock', function(layer) {
-    c.getLayer(layer.name).draggable = false;
+  socket.on('lock_element', function(layer) {
+    // c.getLayer(layer.name).draggable = false;
+    console.log("remote locking for " + layer.name);
+    console.log(c.getLayer(layer.name));
   });
 
-  socket.on('release', function(layer) {
+  socket.on('release_element', function(layer) {
     var postit = c.getLayer(layer.name);
+    console.log("remote releasing for " + layer.name);
+    console.log(postit);
     postit.draggable = true;
     dragStopped(postit);
   });
@@ -89,6 +94,9 @@ $(document).ready(function() {
     close_layer.rotate = degrees;
 
     layer.rotate = degrees;
+
+    console.log("releasing " + layer.name);
+    socket.emit('release', c.data('canvasId'), layer);
   };
 
   var generateId = function (bits) {
