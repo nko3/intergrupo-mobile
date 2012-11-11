@@ -8,7 +8,7 @@ $(document).ready(function () {
 
   });
 
-  $('.canvas-menu a').click(function () {
+  $('a.create').click(function () {
     $('#modalTitle').text($(this).attr('title'));
     $('input[name=type]').val($(this).attr('rel'));
   });
