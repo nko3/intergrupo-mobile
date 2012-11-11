@@ -1,4 +1,5 @@
-var utils = require('../utils/utils');
+var utils = require('../utils/utils')
+  , Canvas = mongoose.model('Canvas');
 
 module.exports = function(io) {
 
@@ -73,6 +74,14 @@ module.exports = function(io) {
       socket.canvasId = canvasId;
 
       socket.emit('init_postits', postits);
+    });
+
+    socket.on('save', function() {
+      console.log('Saving Canvas: ' + socket.canvasId);
+
+      Canvas.updatePostits(socket.canvasId, postits, function(updated) {
+        console.log("The canvas updated? " + updated);
+      });
     });
 
     socket.on('add_element', function(element) {
