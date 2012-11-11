@@ -9,7 +9,7 @@ function RenderCanvas(type, canvas) {
       template = getPBMCTemplate;
       break;
     case 'LC':
-    case ' LC':
+    case ' LC':
       template = getLCTemplate;
       break;
     default:

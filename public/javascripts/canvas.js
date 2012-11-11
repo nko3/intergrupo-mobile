@@ -93,7 +93,7 @@ $(document).ready(function() {
     $(this).css('cursor','auto');
   });
 
-
+  
   RenderCanvas($('small.type').text(), c);
   
   // var ct = c.get(0).getContext('2d');
