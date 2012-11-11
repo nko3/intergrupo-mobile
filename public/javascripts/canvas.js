@@ -47,6 +47,7 @@ var generateId = function (bits) {
 var drawPostit = function(canvas, metadata){
   var post_name = generateId(32);
   var text_name = generateId(32);
+  var close_name = generateId(32);
   var group_name = generateId(32);
 
   var postData = {
@@ -54,6 +55,7 @@ var drawPostit = function(canvas, metadata){
       id: post_name,
       name: post_name,
       text: text_name,
+      close: close_name,
       group: group_name,
       fillStyle: metadata.fillStyle,
       strokeStyle: metadata.strokeStyle,
@@ -65,7 +67,7 @@ var drawPostit = function(canvas, metadata){
       dragstop: dragStopped,
       dragstart: dragStarted,
       click: function (layer){
-        console.log(layer.group);
+        //console.log(layer.group);
       }
     };
   canvas.drawRect(postData);
@@ -88,12 +90,20 @@ var drawPostit = function(canvas, metadata){
       layer.text = textPrompted;
     }
   });
+
+  canvas.drawText({
+    layer: true,
+    name: close_name,
+    id: close_name, 
+    group: group_name,
+
+  });
 };
 
 (function() {
 
   var c = $('canvas'); 
-
+  
 
   $("#add_postit").click(function (e) {
     e.preventDefault();
@@ -101,10 +111,6 @@ var drawPostit = function(canvas, metadata){
     drawPostit(c, {fillStyle: "#909", strokeStyle: "#F99", size: 100});
 
   });
-
-
-  drawTemplate(c, {});
-
 
   //Make canvas of variable width
   
@@ -119,6 +125,7 @@ var drawPostit = function(canvas, metadata){
     //max height 
     //Call a function to redraw other content (texts, images etc) 
     c.drawLayers();
+    RenderCanvas("", c);
   } 
     //Initial call 
   respondCanvas();
