@@ -5,18 +5,21 @@ block content
         .canvas-menu.well-large
             ul(class="roundabout")
                 li
-                    a(href='#canvas-new-modal', role='button', data-toggle='modal', title="Business Model Canvas" , rel='BMC')
+                    h4 Business Model Canvas
+                    a(href='#canvas-new-modal', role='button', data-toggle='modal', title="Business Model Canvas" , rel='BMC')    
                         img(alt="Business Model Canvas", src="images/canvas_bmg.png", data-toggle='modal' )
                 li
+                    h4 Lean Canvas
                     a(href='#canvas-new-modal', role='button', data-toggle='modal', title="Lean Canvas", rel='LC')
                         img(alt="Lean Canvas", src="images/canvas_lean.png", data-toggle='modal' )
                 li
+                    h4 Business Model You
                     a(href='#canvas-new-modal', role='button', data-toggle='modal', title="Business Model You", rel='BMY')
                         img(alt="Business Model You", src="images/canvas_bmy.png", data-toggle='modal' )
     .span12
     .row-fluid
-        .span4
-            //h3 Business Model Canvas
+        .span4.BMC
+            h4.bg-highlight Business Model Canvas
             img(alt="Business Model Canvas", src="images/canvas_bmg.png" )
             br
             br
@@ -28,8 +31,9 @@ block content
                 br
                 br
                 |To know more about Business Model Canvas or download the Poster visit: BusinessModelGeneration.com
-        .span4
-            //h3 Lean Canvas
+        .span4.LC
+            .bg-fade
+            h4 Lean Canvas
             img(alt="Lean Canvas", src="images/canvas_lean.png")
             br
             br
@@ -41,8 +45,8 @@ block content
                 br
                 br
                 |To know more about Lean Canvas visit: http://www.ashmaurya.com/2012/02/why-lean-canvas/
-        .span4
-            //h3 Business Model You
+        .span4.BMY
+            h4 Business Model You
             img(alt="Business Model You", src="images/canvas_bmy.png" )
             br
             br
