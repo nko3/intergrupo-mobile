@@ -9,8 +9,6 @@ $(document).ready(function() {
   // var socket = io.connect('http://intergrupo-mobile.nko3.jit.su/canvas');
 
   socket.on('connect', function() {
-    console.log("connected");
-
     socket.emit('join', canvasId);
   });
 
@@ -24,39 +22,27 @@ $(document).ready(function() {
   });
 
   socket.on('element_added', function(element) {
-    console.log("on element added element: ");
-    console.log(element);
     drawPostit(c, { fillStyle: element.fillStyle, strokeStyle: element.strokeStyle, size: 100, 
       name: element.name, text: element.text, close: element.close, group: element.group});
     // c.drawRect(element);
   });
 
   socket.on('element_removed', function(layer) {
-    console.log("on element added element: ");
-    console.log(layer);
     c.removeLayerGroup(layer.group);
     c.removeLayer(layer.text);
     c.drawLayers();
   });
 
   socket.on('lock_element', function(layer) {
-    console.log("on lock: ");
-    console.log(layer);
-
-    // c.getLayer(layer.name).draggable = false;
     console.log("remote locking for " + layer.name);
     console.log(c.getLayer(layer.name));
   });
 
   socket.on('release_element', function(layer) {
-    console.log("on Release: " + layer);
-    console.log(layer);
-
     moveGroup(layer);
   });
 
   socket.on('text_changed', function(layer) {
-    console.log('on text_changed');
     c.getLayer(layer.name).text = layer.text;
     c.drawLayers();
   });
@@ -94,9 +80,6 @@ $(document).ready(function() {
     var text_layer = c.getLayer(layer.text);
     var close_layer = c.getLayer(layer.close);
 
-
-    console.log("remote releasing for " + layer.name);
-    console.log(postit);
     postit.draggable = true;
     postit.x = layer.x;
     postit.y = layer.y;
@@ -113,9 +96,6 @@ $(document).ready(function() {
     c.drawLayers();
 
   };
-  var drawTemplate = function (canvas, metadata){
-    console.log(metadata);
-  };
 
   var dragStarted = function(layer){
     var canvas = $('canvas');
@@ -125,7 +105,6 @@ $(document).ready(function() {
     close_layer.opacity = 0;
 
     //Emit for lock
-    console.log("locking " + layer.name);
     socket.emit('lock', layer);
   };
 
@@ -151,7 +130,6 @@ $(document).ready(function() {
 
     layer.degrees = degrees;
 
-    console.log("releasing " + layer.name);
     socket.emit('release', layer);
   };
 

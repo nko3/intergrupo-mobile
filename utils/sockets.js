@@ -69,7 +69,6 @@ module.exports = function(io) {
 
     socket.on('join', function(canvasId) {
       socket.join(canvasId);
-      console.log("joined to: " + canvasId);
       socket.canvasId = canvasId;
 
       socket.emit('init_postits', postits);
@@ -77,8 +76,6 @@ module.exports = function(io) {
 
     socket.on('add_element', function(element) {
       postits[element.name] = element;
-      console.log("postits: ");
-      console.log(postits);
 
       socket.broadcast.to(socket.canvasId).emit('element_added', element);
     });
