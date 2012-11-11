@@ -10,7 +10,9 @@ exports.create = function(req, res) {
     , canvas = new Canvas({ title: title });
 
   canvas.save(function(err, canvas) {
-    if(err) throw err;
+    if(err) {
+      res.redirect('/canvas/create');
+    };
 
     res.redirect('/canvas/' + canvas.public_id);
   });
