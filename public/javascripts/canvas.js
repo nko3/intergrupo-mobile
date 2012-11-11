@@ -5,8 +5,8 @@ $(document).ready(function() {
     , canvasId = c.data('canvasId');
 
   //Socket conf
-  var socket = io.connect('http://localhost:3000/canvas');
-  // var socket = io.connect('http://intergrupo-mobile.nko3.jit.su/canvas');
+  // var socket = io.connect('http://localhost:3000/canvas');
+  var socket = io.connect('http://intergrupo-mobile.nko3.jit.su/canvas');
 
   socket.on('connect', function() {
     socket.emit('join', canvasId);
@@ -22,7 +22,7 @@ $(document).ready(function() {
   });
 
   socket.on('element_added', function(element) {
-    drawPostit(c, { fillStyle: element.fillStyle, strokeStyle: element.strokeStyle, size: 100, 
+    drawPostit(c, { fillStyle: element.fillStyle, strokeStyle: element.strokeStyle, size: 100,
       name: element.name, text: element.text, close: element.close, group: element.group});
     // c.drawRect(element);
   });
@@ -95,7 +95,7 @@ $(document).ready(function() {
 
 
   RenderCanvas("", c);
-  
+
   // var ct = c.get(0).getContext('2d');
   // var container = $(c).parent();
   // //Run function when browser resizes

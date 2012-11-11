@@ -1,6 +1,6 @@
 {
   "name": "nko3-intergrupo-mobile",
-  "version": "0.0.0-12",
+  "version": "0.0.0-13",
   "description": "Intergrupo Mobile",
   "main": "server.js",
   "scripts": {
