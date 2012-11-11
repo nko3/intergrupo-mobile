@@ -1,18 +1,63 @@
 extends layout
 
 block content
-  div(class='hero-unit')
-    div(class="canvas-menu")
-        ul(class="roundabout")
-            li
-                a(href='#canvas-new-modal', role='button', data-toggle='modal', title="Business Model Canvas" , rel='bmc')
-                    img(alt="", src="images/canvas_bmg.png", data-toggle='modal' )
-            li
-                a(href='#canvas-new-modal', role='button', data-toggle='modal', title="Personal Business Model Canvas", rel='pbmc')
-                    img(alt="", src="images/canvas_bmy.png", data-toggle='modal' )
-            li
-                a(href='#canvas-new-modal', role='button', data-toggle='modal', title="Lean Business Model Canvas", rel='lbmc')
-                    img(alt="", src="images/canvas_lean.png", data-toggle='modal' )
+    .row-fluid.span8.offset2
+            h1.logo
+                img(alt="Business Model Design", src="images/logo.png")
+    .row-fluid.span8.offset2
+        .canvas-menu.well-large
+            ul(class="roundabout")
+                li
+                    a(href='#canvas-new-modal', role='button', data-toggle='modal', title="Business Model Canvas" , rel='BMC')
+                        img(alt="Business Model Canvas", src="images/canvas_bmg.png", data-toggle='modal' )
+                li
+                    a(href='#canvas-new-modal', role='button', data-toggle='modal', title="Lean Canvas", rel='LC')
+                        img(alt="Lean Canvas", src="images/canvas_lean.png", data-toggle='modal' )
+                li
+                    a(href='#canvas-new-modal', role='button', data-toggle='modal', title="Business Model You", rel='BMY')
+                        img(alt="Business Model You", src="images/canvas_bmy.png", data-toggle='modal' )
+    .row-fluid.span8.offset2
+    .row-fluid.span8.offset2
+        .span4
+            //h3 Business Model Canvas
+            img(alt="Business Model Canvas", src="images/canvas_bmg.png" )
+            br
+            br
+            p 
+                |The Business Model Canvas is a strategic and analytical tool proposed by Alexander Osterwalder in Business Model Generation. It is an entrepreneurial tool preformatted which allows you to design, develop and sketch out new or existing business models.
+                br
+                br
+                |Is usually printed out so teams can jointly start sketching and discussing ideas and key elements with Post-it® notes.
+                br
+                br
+                |To know more about Business Model Canvas or download the Poster visit: BusinessModelGeneration.com
+        .span4
+            //h3 Lean Canvas
+            img(alt="Lean Canvas", src="images/canvas_lean.png")
+            br
+            br
+            p 
+                |Lean Canvas is an adaptation created by Ash Maurya of the Business Model Canvas.
+                br
+                br
+                |"The Lean Canvas is the perfect format for brainstorming possible business models, prioritizing where to start, and tracking on going learning" - Ash Maurya, Running Lean
+                br
+                br
+                |To know more about Lean Canvas visit: http://www.ashmaurya.com/2012/02/why-lean-canvas/
+        .span4
+            //h3 Business Model You
+            img(alt="Business Model You", src="images/canvas_bmy.png" )
+            br
+            br
+            p 
+                |"The idea driving Business Model You! is that by considering ourselves single-person enterprises, we can use the Canvas to develop "personal business models" to improve or even reinvent our work lives." - Tim Clark, Business Model You
+                br
+                br
+                |Tim Clark - one of the Business Model Generation core team members took the initiative to the canvas might be applicable to individuals as well as to organizations.
+                br
+                br
+                |To know more about Business Model You or join the community visit: BusinessModelYou.com
+                //a(href='#canvas-new-modal', role='button', data-toggle='modal', title="Business Model You", rel='BMY', class="btn") create &raquo;
 
   div(id='canvas-new-modal', class='modal hide fade')
     form(action='/canvas/create', method='POST', class='form-vertical')

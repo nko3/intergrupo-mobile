@@ -55,6 +55,7 @@ body {
 .canvas-menu {
   width: 800px;
   margin: 0 auto;
+  background-color: #6595e5;
 }
 .canvas-menu ul {
   list-style: none;
@@ -88,4 +89,8 @@ body {
   float: left;
   margin-right: 10px;
   margin-bottom: 20px;
+}
+
+.logo {
+    margin-left: 35px;
 }
