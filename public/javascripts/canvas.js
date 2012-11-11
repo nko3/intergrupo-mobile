@@ -4,7 +4,6 @@ $(document).ready(function() {
   var c = $('canvas')
     , canvasId = c.data('canvasId');
 
-
   //Socket conf
   var socket = io.connect('http://localhost:3000/canvas');
 
@@ -17,7 +16,17 @@ $(document).ready(function() {
   socket.on('element_added', function(element) {
     console.log("on element added element: ");
     console.log(element);
-    drawPostit(c, element);
+    drawPostit(c, { fillStyle: "#909", strokeStyle: "#F99", size: 100, 
+      name: element.name, text: element.text, close: element.close, group: element.group });
+    // c.drawRect(element);
+  });
+
+  socket.on('element_removed', function(layer) {
+    console.log("on element added element: ");
+    console.log(layer);
+    c.removeLayerGroup(layer.group);
+    c.removeLayer(layer.text);
+    c.drawLayers();
   });
 
   socket.on('lock_element', function(layer) {
@@ -33,11 +42,13 @@ $(document).ready(function() {
     console.log("on Release: " + layer);
     console.log(layer);
 
-    var postit = c.getLayer(layer.name);
-    console.log("remote releasing for " + layer.name);
-    console.log(postit);
-    postit.draggable = true;
-    dragStopped(postit);
+    moveGroup(layer);
+  });
+
+  socket.on('text_changed', function(layer) {
+    console.log('on text_changed');
+    c.getLayer(layer.name).text = layer.text;
+    c.drawLayers();
   });
 
   $("#add_postit").click(function (e) {
@@ -68,7 +79,30 @@ $(document).ready(function() {
     //Initial call
   respondCanvas();
 
+  var moveGroup = function(layer) {
+    var postit = c.getLayer(layer.name);
+    var text_layer = c.getLayer(layer.text);
+    var close_layer = c.getLayer(layer.close);
 
+
+    console.log("remote releasing for " + layer.name);
+    console.log(postit);
+    postit.draggable = true;
+    postit.x = layer.x;
+    postit.y = layer.y;
+
+    text_layer.x = layer.x + 5;
+    text_layer.y = layer.y + 10;
+    text_layer.opacity = 1;
+    // text_layer.rotate = layer.degrees;
+
+    close_layer.x = layer.x - 35;
+    close_layer.y = layer.y - 35;
+    close_layer.opacity = 1;
+    // close_layer.rotate = layer.degrees;
+    c.drawLayers();
+
+  };
   var drawTemplate = function (canvas, metadata){
     console.log(metadata);
   };
@@ -105,6 +139,8 @@ $(document).ready(function() {
 
     layer.rotate = degrees;
 
+    layer.degrees = degrees;
+
     console.log("releasing " + layer.name);
     socket.emit('release', layer);
   };
@@ -129,10 +165,10 @@ $(document).ready(function() {
   };
 
   var drawPostit = function(canvas, metadata){
-    var post_name = generateId(32);
-    var text_name = generateId(32);
-    var close_name = generateId(32);
-    var group_name = generateId(32);
+    var post_name = metadata.name? metadata.name : generateId(32);
+    var text_name = metadata.text? metadata.text : generateId(32);
+    var close_name = metadata.close? metadata.close : generateId(32);
+    var group_name = metadata.group? metadata.group : generateId(32);
 
     var postData = {
         layer: true,
@@ -160,8 +196,7 @@ $(document).ready(function() {
           $(this).css('cursor','auto');
         }
       };
-    canvas.drawRect(postData);
-    canvas.drawText({
+    canvas.drawRect(postData).drawText({
       layer: true,
       name: text_name,
       id: text_name,
@@ -179,6 +214,7 @@ $(document).ready(function() {
         var textPrompted = prompt("Edit the text", layer.text);
         if (textPrompted) {
           layer.text = textPrompted;
+          socket.emit("change_text", layer)
         }
 
       },
@@ -192,6 +228,7 @@ $(document).ready(function() {
       layer: true,
       name: close_name,
       text_layer: text_name,
+      post_name: post_name,
       group: group_name,
       fillStyle: "#000",
       strokeWidth: 2,
@@ -203,6 +240,7 @@ $(document).ready(function() {
       font: "bold 14pt Trebuchet MS",
       text: "X",
       click: function(layer){
+        socket.emit('remove_element', canvas.getLayer(layer.post_name));
         canvas.removeLayerGroup(layer.group);
         canvas.removeLayer(layer.text_layer);
         canvas.drawLayers();

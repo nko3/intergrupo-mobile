@@ -43,16 +43,17 @@ $(document).ready(function() {
       var nickname = $('#nickname').val()
         , email = $('#email').val();
 
-      join({ nickname: nickname, email: email });
+      if(nickname === '' || email === '') {
+        $('#chat-validation-err').show();
+      } else {
+       join({ nickname: nickname, email: email });
+      }
     });
 
     $('#chat-anonymous').click(function(e) {
       e.preventDefault();
 
-      var nickname = $('#nickname').val()
-        , email = $('#email').val();
-
-      join({ nickname: nickname, email: email });
+      join({ nickname: '', email: '' });
     });
 
     $('#message-send').click(function(e) {
@@ -67,11 +68,14 @@ $(document).ready(function() {
       }
     });
 
-    $('#email').keydown(function(e) {
-      var email = $('#email').val();
+    $('#email').keyup(function(e) {
+      var email = $('#email').val()
+        , regex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-      if(email.test(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
-        console.log(email);
+      if(regex.test(email)) {
+        $.get('/avatar', { email: email }, function(url) {
+          $('#avatar').attr('src', url);
+        });
       }
     });
   }
