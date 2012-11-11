@@ -5,7 +5,7 @@ $(document).ready(function() {
     , canvasId = $('#canvas').data('canvasId');
 
   // Check if chat exists!
-  if(chat.length !=0 ) {
+  if(chat.length != 0) {
 
     var socket = io.connect('http://localhost:3000/chat');
 
@@ -17,19 +17,18 @@ $(document).ready(function() {
     socket.on('message', message);
     socket.on('announcement', announce);
 
-
     // Error announces
     socket.on('reconnect', function () {
       $('#chat-messages').empty();
-      message('System', 'Reconnected to the server');
+      announce('Reconnected to the server');
     });
 
     socket.on('reconnecting', function () {
-      message('System', 'Attempting to re-connect to the server');
+      announce('Attempting to re-connect to the server');
     });
 
     socket.on('error', function (e) {
-      message('System', e ? e : 'A unknown error occurred');
+      announce(e ? e : 'A unknown error occurred');
     });
 
     $('#chat-user-modal').modal('show');

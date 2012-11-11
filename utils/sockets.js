@@ -3,26 +3,33 @@ var utils = require('../utils/utils');
 module.exports = function(io) {
 
   // Chat Sockets
+
   var users = {};
+  var userCount = {};
 
   var chat = io.of('/chat').on('connection', function(socket) {
-
 
     socket.on('join', function(canvasId, user, cb) {
       socket.join(canvasId);
 
       nickname = user.nickname = utils.stripHtml(user.nickname);
+      userId = socket.userId = canvasId + '_' + nickname;
 
-      if(users[nickname]) {
+      if(users[userId]) {
         cb(true);
       } else {
         cb(false);
-        socket.canvasId = canvasId;
 
-        users[nickname] = socket.user = user;
+        socket.canvasId = canvasId;
+        canvas[userId] = socket.user = user;
+
+        if(!userCount[canvasId]) {
+          userCount[canvasId] = { count: 0 };
+        }
+        userCount[canvasId].count = userCount[canvasId].count + 1;
 
         chat.in(socket.canvasId).emit('announcement', nickname + ' joined us!');
-        chat.in(socket.canvasId).emit('users', users);
+        chat.in(socket.canvasId).emit('users', userCount[canvasId]);
       }
     });
 
@@ -34,10 +41,15 @@ module.exports = function(io) {
     socket.on('disconnect', function() {
       if(!socket.user) return;
 
+      if(!userCount[socket.canvasId]) return;
+
+      userCount[socket.canvasId].count = userCount[socket.canvasId].count - 1;
+
       socket.leave(socket.canvasId);
-      delete users[socket.user.nickname];
+      delete users[socket.userId];
+
       socket.broadcast.to(socket.canvasId).emit('announcement', socket.user.nickname + ' has left the building...');
-      socket.broadcast.to(socket.canvasId).emit('users', users);
+      socket.broadcast.to(socket.canvasId).emit('users', userCount[socket.canvasId]);
     });
 
   });
