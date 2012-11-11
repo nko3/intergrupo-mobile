@@ -9,15 +9,15 @@ var User = function(options) {
 var Chat = (function() {
 
   var chat = function() {
-    this.users = [];
+    this.users = {};
 
   };
 
   chat.prototype = {
-    join: function(username) {
-      var user = new User({ username: username });
+    join: function(options) {
+      var user = new User(options);
 
-      this.users.push(user);
+      this.users[options.userId] = user;
 
       console.log(this.users);
 

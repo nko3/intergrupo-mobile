@@ -4,10 +4,10 @@ module.exports = function(io) {
 
   io.sockets.on('connection', function(socket) {
 
-    socket.on('join', function(canvasId, username) {
-      chat.join(canvasId, username);
+    socket.on('join', function(canvasId, user) {
+      chat.join(canvasId, user);
+      socket.broadcast.emit('join', canvasId, user);
     });
 
   });
-
 }
