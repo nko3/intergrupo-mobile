@@ -3,6 +3,8 @@ html
   head
     title Canvas Model Design :: #{title}
     link(rel='stylesheet', href='/stylesheets/style.css')
+    script
+      var scripts = [];
   body
     #wrap
       .navbar.navbar-fixed-top
@@ -30,7 +32,14 @@ html
     script(src='/javascripts/jcanvas.js')
     script(src='/javascripts/bootstrap.js')
     script(src='/javascripts/handlebars.js')
-    script(src='/javascripts/chat.js')
     script(src='/javascripts/canvas-templates.js')
     script(src='/javascripts/jquery.roundabout.js')
     script(src='/javascripts/index.js')
+    script
+      (function() {
+        scripts.forEach(function(file) {
+          $.getScript(file, function() {
+            console.log(file + " loaded..");
+          });
+        });
+      })();

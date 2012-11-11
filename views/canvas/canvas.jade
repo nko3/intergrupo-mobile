@@ -12,4 +12,7 @@ block content
         canvas(id='canvas', width=940, height=530, data-canvas-id='#{canvas.public_id}') Here comes the canvas
   .span3
       include chat
-  script(src='/javascripts/canvas.js')
+  script
+    // Load dynamic JS
+    scripts.push('/javascripts/canvas.js');
+    scripts.push('/javascripts/chat.js');
