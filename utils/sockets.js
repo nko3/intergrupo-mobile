@@ -64,7 +64,7 @@ module.exports = function(io) {
 
   // Canvas Sockets
 
-  var postits = [];
+  var postits = {};
   var canvas = io.of('/canvas').on('connection', function(socket) {
 
     socket.on('join', function(canvasId) {
@@ -74,21 +74,24 @@ module.exports = function(io) {
     });
 
     socket.on('add_element', function(element) {
-      console.log('Add element on: ' + socket.canvasId);
-      console.log("postits: " + postits);
+      postits[element.name] = element;
+      console.log("postits: ");
+      console.log(postits);
 
       socket.broadcast.to(socket.canvasId).emit('element_added', element);
     });
 
-    socket.on('lock', function(element) {
-      console.log('Lock element on: ' + socket.canvasId);
+    socket.on('remove_element', function(element) {
+      delete postits[element.name];
 
+      socket.broadcast.to(socket.canvasId).emit('element_removed', element);
+    });
+
+    socket.on('lock', function(element) {
       socket.broadcast.to(socket.canvasId).emit('lock_element', element);
     });
 
     socket.on('release', function(element) {
-      console.log('Release element on: ' + socket.canvasId);
-
       socket.broadcast.to(socket.canvasId).emit('release_element', element);
     });
 
