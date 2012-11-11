@@ -1,6 +1,6 @@
 @import 'bootstrap.css';
 body {
-  padding-top: 50px;
+  padding-top: 5px;
 }
 #canvas {
   border: solid 1px #ccc;
@@ -62,7 +62,7 @@ body {
   padding: 0;
   margin: 0 auto;
   width: 42em;
-  height: 24em;
+  height: 19em;
 }
 .canvas-menu li {
   height: 20em;
@@ -90,6 +90,12 @@ body {
   margin-right: 10px;
   margin-bottom: 20px;
 }
-.logo {
-  margin-left: 35px;
+
+.logo ul {
+    list-style: none;
+    padding-top: 25px;
+}
+
+.logo a {
+    color: black;
 }

@@ -7,26 +7,13 @@ html
       var scripts = [];
   body
     #wrap
-      .navbar.navbar-fixed-top
-        .navbar-inner
-          .container-fluid
-            a(class="brand", href="/") Canvas Model Design
-            ul(class="nav")
-              li
-                a(href='/about') About
+        .container-fluid
             ul(class='nav pull-right')
               li
                 iframe(class='vote-up', src="http://nodeknockout.com/iframe/intergrupo-mobile", frameborder='0', scrolling='no', allowtransparency='true', width='115', height='25')
       .container-fluid
         .row-fluid
           block content
-        #push
-        #footer
-          .credits
-            p(class='muted')
-              p(style='float:left') Share your love and vote for us! &nbsp;
-                i(class='icon-heart')
-              iframe(src="http://nodeknockout.com/iframe/intergrupo-mobile", frameborder='0', scrolling='no', allowtransparency='true', width='115', height='20')
     script(src='/socket.io/socket.io.js')
     script(src='/javascripts/jquery.js')
     script(src='/javascripts/jcanvas.js')
