@@ -2,17 +2,28 @@ extends layout
 
 block content
   div(class='hero-unit')
-    h2 Welcome
-    p
-      a(href='#canvas-new-modal', role='button', data-toggle='modal', class='btn btn-primary btn-large') Create a New Canvas
+    div(class="canvas-menu")
+        ul(class="roundabout")
+            li
+                a(href='#canvas-new-modal', role='button', data-toggle='modal', title="Business Model Canvas" , rel='bmc')
+                    img(alt="", src="images/canvas_bmg.png", data-toggle='modal' )
+            li
+                a(href='#canvas-new-modal', role='button', data-toggle='modal', title="Personal Business Model Canvas", rel='pbmc')
+                    img(alt="", src="images/canvas_bmy.png", data-toggle='modal' )
+            li
+                a(href='#canvas-new-modal', role='button', data-toggle='modal', title="Empty Business Model Canvas", rel='bm')
+                    img(alt="", src="images/canvas_empty.png", data-toggle='modal' )
 
   div(id='canvas-new-modal', class='modal hide fade')
     form(action='/canvas/create', method='POST', class='form-vertical')
       .modal-header
         button(type='button', class='close', data-dismiss='modal', aria-hidden='true') x
-        h3 Setup your Canvas
+        h3 Setup your 
+            span(id="modalTitle")
       .modal-body
         input(name='title', type='text', placeholder='Canvas title')
+        input(name='type', type='hidden', placeholder='Canvas type')
       .modal-footer
         button(class='btn', data-dismiss='modal', aria-hidden='true') Cancel
         button(type='submit', class='btn btn-primary') Create!
+
