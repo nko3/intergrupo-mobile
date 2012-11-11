@@ -17,7 +17,10 @@
   p.announcement {{announce}}
 
 #chat-message-template.hide
-  p.message {{user.avatar}} {{user.nickname}} : {{message}}
+  div.message
+    img(src='')
+    .content {{message}}
+      p.author {{user.nickname}}
 
 div(id='chat-user-modal', class='modal hide fade')
   .modal-header

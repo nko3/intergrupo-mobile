@@ -20,6 +20,8 @@ module.exports = function(io) {
       } else {
         cb(false);
 
+        user.avatar = user.email ? 'http://gravatar.com/avatar/' + utils.md5(user.email) + '?s=32' : '/images/avatar.png';
+
         socket.canvasId = canvasId;
         canvas[userId] = socket.user = user;
 

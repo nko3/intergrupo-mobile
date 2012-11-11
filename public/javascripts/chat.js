@@ -114,6 +114,9 @@ $(document).ready(function() {
       , template = Handlebars.compile(source)
       , content = template({ user: user, message: msg });
 
+    // Add avatar :)
+    content = content.replace('src=""',"src='" + user.avatar + "'");
+
     $('#chat-messages').append(content);
     $('#chat-messages').animate({ scrollTop: $('#chat-messages').height() }, 'slow');
   }

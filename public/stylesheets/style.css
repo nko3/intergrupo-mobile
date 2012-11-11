@@ -35,6 +35,19 @@ body {
   padding: 2px;
   margin: 2px;
 }
+#chat #chat-messages .message .content {
+  width: 100%;
+}
+#chat #chat-messages .message img {
+  float: left;
+  padding: 2px;
+}
+#chat #chat-messages .message .author {
+  text-align: right;
+  font-size: 10px;
+  color: #666;
+  margin: 1px;
+}
 #chat #chat-messages .announcement {
   font-style: italic;
   color: #ccc;

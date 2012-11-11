@@ -1,3 +1,5 @@
+var crypto = require('crypto');
+
 exports.generateId = function(bits) {
   var chars, rand, i, ret;
 
@@ -17,10 +19,14 @@ exports.generateId = function(bits) {
   return ret;
 }
 
-exports.stripHtml = function(text) {
-  if(typeof text === 'string') {
-    return text.replace(/(<([^>]+)>)/ig,"");
+exports.stripHtml = function(str) {
+  if(typeof str === 'string') {
+    return str.replace(/(<([^>]+)>)/ig,"");
   } else {
     return '';
   }
+}
+
+exports.md5 = function(str) {
+  return crypto.createHash('md5').update(str).digest('hex');
 }
