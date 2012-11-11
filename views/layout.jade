@@ -27,6 +27,9 @@ html
         scripts.forEach(function(file) {
           $.getScript(file, function() {
             console.log(file + " loaded..");
+          }).fail(function(xhr, setting, ex) {
+            console.log("An error ocurred while loading " + file);
+            console.log(ex);
           });
         });
       })();
