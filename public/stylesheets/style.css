@@ -65,6 +65,9 @@ h4 {
 .dropdown-menu {
   padding-left: 40px;
 }
+.share {
+  margin-top: -50px !important;
+}
 .canvas-menu {
   margin: 0 auto;
   background-color: #6ec568;
