@@ -68,6 +68,12 @@ var drawPostit = function(canvas, metadata){
       dragstart: dragStarted,
       click: function (layer){
         //console.log(layer.group);
+      },
+      mouseover: function (layer){
+        $(this).css('cursor','move');
+      }, 
+      mouseout: function (layer){
+        $(this).css('cursor','auto');
       }
     };
   canvas.drawRect(postData);
@@ -78,7 +84,7 @@ var drawPostit = function(canvas, metadata){
     group: group_name,
     fillStyle: "#000",
     strokeWidth: 2,
-    draggable: true,
+    draggable: false,
     bringToFront: true,
     x: postData.x + 5, y: postData.y + 20,
     height: postData.height,
@@ -87,17 +93,26 @@ var drawPostit = function(canvas, metadata){
     text: "Add text here bla bla bla",
     click: function(layer){
       var textPrompted = prompt("Edit the text", layer.text);
-      layer.text = textPrompted;
+      if (textPrompted) {
+        layer.text = textPrompted;
+      }
+      
+    },
+    mouseover: function (layer){
+      $(this).css('cursor','text');
+    },
+    mouseout: function (layer){
+      $(this).css('cursor','move');
     }
   });
 
-  canvas.drawText({
-    layer: true,
-    name: close_name,
-    id: close_name, 
-    group: group_name,
+  // canvas.drawText({
+  //   layer: true,
+  //   name: close_name,
+  //   id: close_name, 
+  //   group: group_name,
 
-  });
+  // });
 };
 
 (function() {
