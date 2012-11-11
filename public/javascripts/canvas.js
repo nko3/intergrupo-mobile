@@ -13,11 +13,20 @@ $(document).ready(function() {
     socket.emit('join', canvasId);
   });
 
+  socket.on('init_postits', function(postits) {
+    $.each(postits, function(key, element) {
+      drawPostit(c, { fillStyle: element.fillStyle, strokeStyle: element.strokeStyle, size: 100, 
+      name: element.name, text: element.text, close: element.close, group: element.group, 
+      x: element.x, y: element.y, content: element.content });
+      c.drawLayers();
+    });
+  });
+
   socket.on('element_added', function(element) {
     console.log("on element added element: ");
     console.log(element);
-    drawPostit(c, { fillStyle: "#909", strokeStyle: "#F99", size: 100, 
-      name: element.name, text: element.text, close: element.close, group: element.group });
+    drawPostit(c, { fillStyle: element.fillStyle, strokeStyle: element.strokeStyle, size: 100, 
+      name: element.name, text: element.text, close: element.close, group: element.group});
     // c.drawRect(element);
   });
 
@@ -54,7 +63,7 @@ $(document).ready(function() {
   $("#add_postit").click(function (e) {
     e.preventDefault();
 
-    var element = drawPostit(c, {fillStyle: "#909", strokeStyle: "#F99", size: 100});
+    var element = drawPostit(c, {fillStyle: "#36b", strokeStyle: '#36b', size: 100});
     socket.emit("add_element", element);
   });
 
@@ -180,7 +189,8 @@ $(document).ready(function() {
         fillStyle: metadata.fillStyle,
         strokeStyle: metadata.strokeStyle,
         strokeWidth: 2,
-        x: (parseInt(canvas.attr("width")) / 2), y: (parseInt(canvas.attr("height")) / 2),
+        x: metadata.x? metadata.x : (parseInt(canvas.attr("width")) / 2), 
+        y: metadata.y? metadata.y : (parseInt(canvas.attr("height")) / 2),
         width: metadata.size, height: metadata.size,
         draggable: true,
         bringToFront: false,
@@ -199,6 +209,7 @@ $(document).ready(function() {
     canvas.drawRect(postData).drawText({
       layer: true,
       name: text_name,
+      post_name: post_name,
       id: text_name,
       group: group_name,
       fillStyle: "#000",
@@ -209,11 +220,13 @@ $(document).ready(function() {
       height: postData.height,
       maxWidth: postData.width - 10,//Beta
       font: "bold 14pt Trebuchet MS",
-      text: "Add text here bla bla bla",
+      text: metadata.content? metadata.content : "Add text here bla bla bla",
       click: function(layer){
         var textPrompted = prompt("Edit the text", layer.text);
         if (textPrompted) {
           layer.text = textPrompted;
+          canvas.getLayer(postData.name).content = textPrompted;
+          postData.content = textPrompted;
           socket.emit("change_text", layer)
         }
 

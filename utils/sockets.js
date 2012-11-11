@@ -71,6 +71,8 @@ module.exports = function(io) {
       socket.join(canvasId);
       console.log("joined to: " + canvasId);
       socket.canvasId = canvasId;
+
+      socket.emit('init_postits', postits);
     });
 
     socket.on('add_element', function(element) {
@@ -92,10 +94,15 @@ module.exports = function(io) {
     });
 
     socket.on('release', function(element) {
+      postits[element.name].x = element.x;
+      postits[element.name].y = element.y;
       socket.broadcast.to(socket.canvasId).emit('release_element', element);
     });
 
     socket.on('change_text', function(element) {
+
+      postits[element.post_name].content = element.text;
+
       socket.broadcast.to(socket.canvasId).emit('text_changed', element);
     });
 
