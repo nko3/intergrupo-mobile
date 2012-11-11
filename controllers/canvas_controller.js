@@ -22,13 +22,24 @@ exports.create = function(req, res) {
   });
 };
 
+exports.fork = function(req, res) {
+  var publicId = req.param('public_id');
+};
+
 exports.show = function(req, res) {
   var publicId = req.param('public_id');
 
   Canvas.findOne({ public_id: publicId }, function(err, canvas) {
-    res.render('canvas/canvas', {
-      title: canvas.title,
-      canvas: canvas
-    });
+
+    if(err || !canvas) {
+      res.render('canvas/notfound', {
+        title: 'Canvas not found :('
+      });
+    } else {
+      res.render('canvas/canvas', {
+        title: canvas.title,
+        canvas: canvas
+      });
+    }
   });
 };
