@@ -4,8 +4,11 @@ function RenderCanvas(type, canvas) {
   width = canvas.width();
   height = canvas.height();
   switch (type) {
-    case 'PBMC':
+    case 'BMY':
       template = getPBMCTemplate;
+      break;
+    case 'LC':
+      template = getLCTemplate;
       break;
     default:
       template = getBMCTemplate;
@@ -31,7 +34,21 @@ function getBMCTemplate(width, height) {
         "Revenue Streams"
     );
 }
-
+function getLCTemplate(width, height) {
+  return getBMTemplate(
+        width,
+        height,
+        "Problem",
+        "Solution",
+        "Unique Value Proposition",
+        "Unfair Advantage",
+        "Customer Segments",
+        "Key Metrics",
+        "Channels",
+        "Cost Structure",
+        "Revenue Streams"
+    );
+}
 function getPBMCTemplate(width, height) {
   return getBMTemplate(
         width,
