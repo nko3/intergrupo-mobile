@@ -10,9 +10,19 @@ $(document).ready(function() {
     console.log("connected");
   });
 
-  socket.on('element_added', function(element){
+  socket.on('element_added', function(element) {
     console.log("Draw element:" + element);
     //drawPostit(c, element);
+  });
+
+  socket.on('lock', function(layer) {
+    c.getLayer(layer.name).draggable = false;
+  });
+
+  socket.on('release', function(layer) {
+    var postit = c.getLayer(layer.name);
+    postit.draggable = true;
+    dragStopped(postit);
   });
 
   $("#add_postit").click(function (e) {
@@ -48,6 +58,18 @@ $(document).ready(function() {
     console.log(metadata);
   };
 
+  var dragStarted = function(layer){
+    var canvas = $('canvas');
+    var text_layer = canvas.getLayer(layer.text);
+    var close_layer = canvas.getLayer(layer.close);
+    text_layer.opacity = 0;
+    close_layer.opacity = 0;
+    
+    //Emit for lock
+    console.log("locking " + layer.name);
+    socket.emit('lock', c.data('canvasId'), layer);
+  };
+
   var dragStopped = function(layer){
     //Emit for unlock and update
     // console.log(object.id);
@@ -68,17 +90,6 @@ $(document).ready(function() {
 
     layer.rotate = degrees;
   };
-
-  var dragStarted = function(layer){
-    var canvas = $('canvas');
-    var text_layer = canvas.getLayer(layer.text);
-    var close_layer = canvas.getLayer(layer.close);
-    text_layer.opacity = 0;
-    close_layer.opacity = 0;
-    //Emit for lock
-    // console.log(object.id);
-  };
-
 
   var generateId = function (bits) {
     var chars, rand, i, ret;

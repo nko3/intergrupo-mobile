@@ -68,5 +68,8 @@ module.exports = function(io) {
 
       socket.broadcast.to(canvasId).emit('element_added', element);
     });
+
+
+    
   });
 }
