@@ -5,9 +5,11 @@ function RenderCanvas(type, canvas) {
   height = canvas.height();
   switch (type) {
     case 'BMY':
+    case ' BMY':
       template = getPBMCTemplate;
       break;
     case 'LC':
+    case ' LC':
       template = getLCTemplate;
       break;
     default:
