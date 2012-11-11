@@ -9,11 +9,15 @@ exports.create = function(req, res) {
   var title = req.param('title') || 'untitled'
     , canvas = new Canvas({ title: title });
 
-  canvas.save(function(err, canvas) {
+  // Generate unique ID
+  canvas.public_id = utils.generateId(24);
+
+  // Save Canvas
+  canvas.save(function(err, c) {
     if(err) {
       throw new Error(err);
     } else {
-      res.redirect('/canvas/' + canvas.public_id);
+      res.redirect('/canvas/' + c.public_id);
     }
   });
 };
