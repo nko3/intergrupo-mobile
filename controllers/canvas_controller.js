@@ -17,14 +17,12 @@ exports.create = function(req, res) {
 };
 
 exports.show = function(req, res) {
-  var publicId = req.param('public_id')
-  , userId = req.session.userId = req.session.userId ? req.session.userId : publicId + "_" + utils.generateId(32);
+  var publicId = req.param('public_id');
 
   Canvas.findOne({ public_id: publicId }, function(err, canvas) {
     res.render('canvas/canvas', {
       title: canvas.title,
-      canvas: canvas,
-      userId: userId
+      canvas: canvas
     });
   });
 };

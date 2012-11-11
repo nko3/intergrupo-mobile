@@ -1,2 +1,11 @@
 #chat
-  span Yay!
+  #chat-title
+    h3 Chat
+  #chat-messages
+    // Messages
+
+#chat-announce-template.hide
+  p.announce {{announce}}
+
+#chat-message-template.hide
+  p.message {{message.user.avatar}} {{message.user.name}} : {{message.message}}
