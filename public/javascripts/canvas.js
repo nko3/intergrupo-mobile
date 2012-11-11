@@ -6,6 +6,7 @@ $(document).ready(function() {
 
   //Socket conf
   var socket = io.connect('http://localhost:3000/canvas');
+  // var socket = io.connect('http://intergrupo-mobile.nko3.jit.su/canvas');
 
   socket.on('connect', function() {
     console.log("connected");
