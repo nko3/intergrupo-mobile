@@ -15,9 +15,14 @@ html
                         img(alt="Canvas Model Design", src="/images/logo.png")
                 ul.pull-right
                     li
-                        a(href='/about') About
+                      a(href='/about') About
                     li
                         iframe(class='vote-up', src="http://nodeknockout.com/iframe/intergrupo-mobile", frameborder='0', scrolling='no', allowtransparency='true', width='115', height='25')
+                    li 
+                      a.twitter-share-button(href='https://twitter.com/share', data-text='Share your business ideas with Canvas Model Design', data-via='canvasmodel', data-size='large', data-count='none') Tweet
+                      script
+                          !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
+                    
         .row-fluid
             .span8.offset2
                 block content
