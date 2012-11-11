@@ -7,12 +7,11 @@ html
       var scripts = [];
   body
     #wrap
-        .container-fluid
-            ul(class='nav pull-right')
-              li
-                iframe(class='vote-up', src="http://nodeknockout.com/iframe/intergrupo-mobile", frameborder='0', scrolling='no', allowtransparency='true', width='115', height='25')
       .container-fluid
         .row-fluid
+          ul(class='nav pull-right')
+            li
+              iframe(class='vote-up', src="http://nodeknockout.com/iframe/intergrupo-mobile", frameborder='0', scrolling='no', allowtransparency='true', width='115', height='25')
           block content
     script(src='/socket.io/socket.io.js')
     script(src='/javascripts/jquery.js')

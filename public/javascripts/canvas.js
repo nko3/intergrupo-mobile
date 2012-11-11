@@ -68,7 +68,7 @@ $(document).ready(function() {
   var ct = c.get(0).getContext('2d');
   var container = $(c).parent();
   //Run function when browser resizes
-  $(window).resize( respondCanvas );
+  //$(window).resize( respondCanvas );
   function respondCanvas(){
     c.attr('width', $(container).width() );
     //max width
