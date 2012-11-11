@@ -21,14 +21,15 @@ html
         .row-fluid
             .span8.offset2
                 block content
-        #push
-        #footer
-          .credits
-            p(class='muted')
-              p(style='float:left') Share your love and vote for us! &nbsp;
-                i(class='icon-heart')
-              iframe(src="http://nodeknockout.com/iframe/intergrupo-mobile", frameborder='0', scrolling='no', allowtransparency='true', width='115', height='20')
+                #push
+                #footer
+                    p.pull-left Share your love and vote for us! &nbsp;
+                        i(class='icon-heart')
+                    iframe(src="http://nodeknockout.com/iframe/intergrupo-mobile", frameborder='0', scrolling='no', allowtransparency='true', width='115', height='20')
+                    a(class="Intergrupo", href="http://www.intergrupo.com")
+                        img(alt="Logo intergrupo mobile", src="images/logo-mobile.png", class="pull-right")
     script(src='/javascripts/jquery.js')
+
     script(src='/javascripts/bootstrap.js')
     script(src='/javascripts/jquery.roundabout.js')
     script(src='/javascripts/index.js')
