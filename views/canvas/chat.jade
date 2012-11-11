@@ -8,4 +8,16 @@
   p.announce {{announce}}
 
 #chat-message-template.hide
-  p.message {{message.user.avatar}} {{message.user.name}} : {{message.message}}
+  p.message {{user.avatar}} {{user.nickname}} : {{message}}
+
+div(id='chat-user-modal', class='modal hide fade')
+  .modal-header
+    button(type='button', class='close', data-dismiss='modal', aria-hidden='true') x
+    h3 User Information
+  .modal-body
+    input(type='text', id='nickname', placeholder='Enter your nickname')
+    p(id='chat-nickname-err', class='hide') Nickname taken! choose another
+    input(type='text', id='email', placeholder='Enter your email')
+  .modal-footer
+    button(class='btn', data-dismiss='modal', aria-hidden='true') Cancel
+    button(id='chat-join', class='btn btn-primary') Join us!

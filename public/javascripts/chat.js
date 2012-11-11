@@ -4,42 +4,78 @@ $(document).ready(function() {
   var chat = $("#chat")
     , canvasId = $('#canvas').data('canvasId');
 
-  var username = 'Anonymous_' + Math.floor(Math.random()*1000);
-
+  // Check if chat exists!
   if(chat.length !=0 ) {
+
     var socket = io.connect('http://localhost:3000/chat');
 
     socket.on('connect', function() {
-      var user = {
-        username: username
-      }
-      // do the join
-      socket.emit('join', canvasId, user);
+        // do something
     });
 
-    socket.on('join', function(cId, user) {
-      if(canvasId == cId) {
-        announce(user.username + ' joins us!');
-      }
+    socket.on('users', users);
+    socket.on('message', message);
+    socket.on('announcement', announce);
+
+
+    // Error announces
+    socket.on('reconnect', function () {
+      $('#chat-messages').empty();
+      message('System', 'Reconnected to the server');
+    });
+
+    socket.on('reconnecting', function () {
+      message('System', 'Attempting to re-connect to the server');
+    });
+
+    socket.on('error', function (e) {
+      message('System', e ? e : 'A unknown error occurred');
+    });
+
+    $('#chat-user-modal').modal('show');
+
+    $('#chat-join').click(function(e) {
+      e.preventDefault();
+
+      var nickname = $('#nickname').val()
+        , email = $('#email').val();
+
+      socket.emit('join', canvasId, { nickname: nickname, email: email }, function(exists) {
+        console.log(canvasId);
+
+        if(!exists) {
+          return $('#chat-user-modal').modal('hide');
+        }
+
+        $('#chat-nickname-err').show();
+
+      });
+
+
     });
   }
 
-  function announce(announce) {
-    announce = { announce: announce };
-
+  function announce(message) {
+    console.log(message);
     var source = $('#chat-announce-template').html()
       , template = Handlebars.compile(source)
-      , content = template(announce);
+      , content = template({ announce: message });
 
       $('#chat-messages').append(content);
   }
 
-  function message(message) {
+  function message(user, message) {
+    console.log(user);
+    console.log(message);
     var source = $('#chat-message-template').html()
       , template = Handlebars.compile(source)
-      , content = template(message);
+      , content = template({ user: user, message: message });
 
       $('#chat-messages').append(content);
+  }
+
+  function users(users) {
+    console.log(users);
   }
 
 });
