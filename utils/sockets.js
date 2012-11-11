@@ -89,5 +89,9 @@ module.exports = function(io) {
       socket.broadcast.to(socket.canvasId).emit('release_element', element);
     });
 
+    socket.on('change_text', function(element) {
+      socket.broadcast.to(socket.canvasId).emit('text_changed', element);
+    });
+
   });
 }

@@ -44,7 +44,12 @@ $(document).ready(function() {
     console.log(layer);
 
     moveGroup(layer);
-    // dragStopped(postit);
+  });
+
+  socket.on('text_changed', function(layer) {
+    console.log('on text_changed');
+    c.getLayer(layer.name).text = layer.text;
+    c.drawLayers();
   });
 
   $("#add_postit").click(function (e) {
@@ -210,6 +215,7 @@ $(document).ready(function() {
         var textPrompted = prompt("Edit the text", layer.text);
         if (textPrompted) {
           layer.text = textPrompted;
+          socket.emit("change_text", layer)
         }
 
       },
