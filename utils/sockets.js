@@ -72,25 +72,29 @@ module.exports = function(io) {
       socket.join(canvasId);
       socket.canvasId = canvasId;
 
-      socket.emit('init_postits', postits);
+      if(!postits[canvasId]) {
+        postits[canvasId] = {}
+      }
+
+      socket.emit('init_postits', postits[canvasId]);
     });
 
     socket.on('save', function() {
       console.log('Saving Canvas: ' + socket.canvasId);
 
-      Canvas.updatePostits(socket.canvasId, postits, function(updated) {
+      Canvas.updatePostits(socket.canvasId, postits[socket.canvasId], function(updated) {
         console.log("The canvas updated? " + updated);
       });
     });
 
     socket.on('add_element', function(element) {
-      postits[element.name] = element;
+      postits[socket.canvasId][element.name] = element;
 
       socket.broadcast.to(socket.canvasId).emit('element_added', element);
     });
 
     socket.on('remove_element', function(element) {
-      delete postits[element.name];
+      delete postits[socket.canvasId][element.name];
 
       socket.broadcast.to(socket.canvasId).emit('element_removed', element);
     });
@@ -100,14 +104,14 @@ module.exports = function(io) {
     });
 
     socket.on('release', function(element) {
-      postits[element.name].x = element.x;
-      postits[element.name].y = element.y;
+      postits[socket.canvasId][element.name].x = element.x;
+      postits[socket.canvasId][element.name].y = element.y;
       socket.broadcast.to(socket.canvasId).emit('release_element', element);
     });
 
     socket.on('change_text', function(element) {
 
-      postits[element.post_name].content = element.text;
+      postits[socket.canvasId][element.post_name].content = element.text;
 
       socket.broadcast.to(socket.canvasId).emit('text_changed', element);
     });

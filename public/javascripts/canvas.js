@@ -5,7 +5,7 @@ $(document).ready(function() {
     , canvasId = c.data('canvasId');
 
   //Socket conf
-  // var socket = io.connect('http://localhost:3000/canvas');
+  //var socket = io.connect('http://localhost:3000/canvas');
   var socket = io.connect('http://intergrupo-mobile.nko3.jit.su/canvas');
 
   socket.on('connect', function() {
@@ -93,7 +93,7 @@ $(document).ready(function() {
     $(this).css('cursor','auto');
   });
 
-  
+
   RenderCanvas($('small.type').text(), c);
 
   // var ct = c.get(0).getContext('2d');

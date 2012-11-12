@@ -8,7 +8,7 @@ $(document).ready(function() {
   if(chat.length != 0) {
 
     var socket = io.connect('http://intergrupo-mobile.nko3.jit.su/chat');
-    // var socket = io.connect('http://localhost:3000/chat');
+    //var socket = io.connect('http://localhost:3000/chat');
 
     socket.on('connect', function() {
       waiting();
